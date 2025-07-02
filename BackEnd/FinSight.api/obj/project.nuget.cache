@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "m3C5moFeNKoth5Gt041LkiklXvXwrI+w5qDfHs6grdoeTe61NE2r4vOvfLaB1G4H4Zp7QDpIp+ghaSNXFoA6bQ==",
+  "success": true,
+  "projectFilePath": "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\FinSight.api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rahul\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Rahul\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Rahul\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Rahul\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Rahul\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Rahul\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

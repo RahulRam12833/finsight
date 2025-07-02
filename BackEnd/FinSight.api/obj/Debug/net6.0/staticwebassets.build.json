@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "SOfNgvnoCSA9y7QVWyGmFzGsfqKCrAOfpOjWFYV0DK8=",
+  "Source": "FinSight.api",
+  "BasePath": "_content/FinSight.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
