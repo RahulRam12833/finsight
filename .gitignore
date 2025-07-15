@@ -25,6 +25,7 @@ obj/
 *.userosscache
 *.sln.docstates
 *.pdb
+Backend/FinSight.api/appsettings.Development.json
 
 # === Editor directories and files ===
 .vscode/
