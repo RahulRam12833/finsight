@@ -25,8 +25,7 @@ dist-ssr/
 *.userosscache
 *.sln.docstates
 *.pdb
-*.cache
-*.csproj.nuget.*
+Backend/FinSight.api/appsettings.Development.json
 
 # === IDEs & Editor Settings ===
 .vscode/
