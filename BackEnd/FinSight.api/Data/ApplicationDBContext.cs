@@ -15,7 +15,7 @@ namespace FinSight.api.Data
         }
 
         // Define DbSets for your entities here
-        // public DbSet<YourEntity> YourEntities { get; set; }
+        public DbSet<PlaceholderStock> PlaceholderStocks { get; set; }
 
     }
 }
