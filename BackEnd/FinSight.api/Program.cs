@@ -23,5 +23,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(policy =>
+{
+    policy.AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials()
+          //.WithOrigins("https://localhost:5173")
+          .SetIsOriginAllowed(origin => true); // Allows all origins for development purposes
+
+});
 app.MapControllers();
 app.Run();
