@@ -48,7 +48,7 @@ namespace FinSight.api.Controllers
 
             _context.PlaceholderStocks.Add(stock);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetAll), new { id = stock.Id }, stock);
+            return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock);
         }
 
     }
