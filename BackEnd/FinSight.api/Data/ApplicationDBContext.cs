@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using FinSight.api.Models;
 
 namespace FinSight.api.Data
 {
@@ -15,7 +16,7 @@ namespace FinSight.api.Data
         }
 
         // Define DbSets for your entities here
-        // public DbSet<YourEntity> YourEntities { get; set; }
+        public DbSet<PlaceholderStock> PlaceholderStocks { get; set; }
 
     }
 }
