@@ -1,29 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+type Stock = {
+  id: number;
+  symbol: string;
+  companyName: string;
+  purchase: number;
+};
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const response = await fetch(
+          "https://localhost:7206/api/PlaceholderStock"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setStocks(data);
+      } catch (error) {
+        setError("Failed to fetch stocks");
+        console.error("Error fetching stocks:", error);
+      }
+    };
+
+    fetchStocks();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-red-500">Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <div className="p-6">
-          <button className="btn btn-primary">Hello FinSight</button>
-        </div>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4 text-blue-600">
+          FinSight Stocks
+        </h1>
+        {error && <p className="text-red-500">{error}</p>}
+
+        <ul className="space-y-4">
+          {stocks.map((stock) => (
+            <li key={stock.id} className="border p-2 rounded shadow">
+              <div className="flex justify-between">
+                <span className="text-gray-700">{stock.symbol}</span>
+                <span className="text-gray-700">{stock.companyName}</span>
+                <span className="text-green-400">{stock.purchase}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
