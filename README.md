@@ -1,12 +1,60 @@
-### Database Setup
+# FinSight — React + .NET Full-Stack Finance Tracker
 
-- The connection string in `appsettings.json` uses `localhost` as the SQL Server instance.
-- For local development, create an `appsettings.Development.json` file
+## Project Overview
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=YOUR-PC-NAME\\SQLEXPRESS;Initial Catalog=dbname;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-  }
-}
-```
+FinSight is a full-stack finance tracking application built with a React frontend and a .NET backend. The goal is to learn and demonstrate practical skills in modern web development, including API design, frontend-backend integration, and deployment readiness.
+
+---
+
+## Current Progress
+
+**Backend:**  
+- Developed RESTful APIs for managing stock and finance data using .NET 8 Web API with **Entity Framework Core** and **Microsoft SQL Server**.  
+- Implemented data seeding with placeholder stock data.  
+- API endpoints tested successfully via **Swagger and Postman**.  
+- Configured a **temporary permissive CORS policy** to enable smooth frontend integration during development.  
+  > *Note: This CORS setup allows all origins and will be tightened before production.*
+
+**Frontend:**  
+- Built a minimal React application (using Vite) that fetches and displays data from the backend API.  
+- Implemented API calls using `fetch` to demonstrate frontend-backend communication.  
+- Encountered and resolved CORS issues during integration, currently using the temporary backend CORS fix.
+
+---
+
+## Database
+
+- Using **Microsoft SQL Server** as the backend database for reliable and scalable data storage.  
+- Integrated with the .NET backend via **Entity Framework Core** for efficient ORM and migration management.  
+- Stores finance-related data including stocks, transactions, and user information.  
+- Database connection configured through appsettings and supports local development and deployment environments.  
+- Initial data seeded with placeholder stock records for testing and frontend integration.
+
+---
+
+## Technical Highlights
+
+- Monorepo structure with separate backend and frontend folders for clean project organization.  
+- CORS configured temporarily to allow all origins during local development; planned to tighten before production.  
+- Use of Git branches and pull requests to manage backend and frontend development independently and integrate changes systematically.  
+- Ready for next phases: Docker containerization, CI/CD pipelines, and deployment.
+
+---
+
+## Next Steps
+
+- Refine CORS policy for production with environment-specific origins.  
+- Enhance frontend UI and state management.  
+- Containerize the application using Docker.  
+- Set up CI/CD workflows via GitHub Actions for automated testing and deployment.  
+- Deploy to cloud platform (Azure, AWS, or similar).
+
+---
+
+## How to Run Locally
+
+### Backend
+
+```bash
+cd backend
+dotnet run
