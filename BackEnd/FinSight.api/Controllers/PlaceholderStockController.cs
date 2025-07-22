@@ -21,16 +21,16 @@ namespace FinSight.api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var stocks = _context.PlaceholderStocks.ToList();
+            var stocks = await _context.PlaceholderStocks.ToListAsync();
             return Ok(stocks);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var stock = _context.PlaceholderStocks.Find(id);
+            var stock = await _context.PlaceholderStocks.FindAsync(id);
             if (stock == null)
             {
                 return NotFound();
@@ -39,15 +39,15 @@ namespace FinSight.api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] PlaceholderStock stock)
+        public async Task<IActionResult> Create([FromBody] PlaceholderStock stock)
         {
             if (stock == null)
             {
                 return BadRequest("Invalid stock data.");
             }
 
-            _context.PlaceholderStocks.Add(stock);
-            _context.SaveChanges();
+            await _context.PlaceholderStocks.AddAsync(stock);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock);
         }
 
