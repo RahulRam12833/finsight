@@ -8,8 +8,8 @@ namespace FinSight.api.Interfaces
 {
     public interface IPlaceholderStockRepository
     {
-        Task<IEnumerable<PlaceholderStock>> GetAllStocksAsync();
-        Task<PlaceholderStock> GetStockByIdAsync(int id);
+        Task<List<PlaceholderStock>> GetAllStocksAsync();
+        Task<PlaceholderStock?> GetStockByIdAsync(int id);
         Task<PlaceholderStock> CreateStockAsync(PlaceholderStock stock);
     }
 }

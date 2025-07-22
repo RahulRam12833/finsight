@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinSight.api.Models;
 using FinSight.api.Data;
+using FinSight.api.Interfaces;
 
 namespace FinSight.api.Controllers
 {
@@ -13,24 +14,24 @@ namespace FinSight.api.Controllers
     [Route("api/[controller]")]
     public class PlaceholderStockController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        private readonly IPlaceholderStockRepository _placeholderStockRepository;
 
-        public PlaceholderStockController(ApplicationDBContext context)
+        public PlaceholderStockController(IPlaceholderStockRepository placeholderStockRepository)
         {
-            _context = context;
+            _placeholderStockRepository = placeholderStockRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var stocks = await _context.PlaceholderStocks.ToListAsync();
+            var stocks = await _placeholderStockRepository.GetAllStocksAsync();
             return Ok(stocks);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var stock = await _context.PlaceholderStocks.FindAsync(id);
+            var stock = await _placeholderStockRepository.GetStockByIdAsync(id);
             if (stock == null)
             {
                 return NotFound();
@@ -46,8 +47,7 @@ namespace FinSight.api.Controllers
                 return BadRequest("Invalid stock data.");
             }
 
-            await _context.PlaceholderStocks.AddAsync(stock);
-            await _context.SaveChangesAsync();
+            await _placeholderStockRepository.CreateStockAsync(stock);
             return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock);
         }
 
