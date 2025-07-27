@@ -1,0 +1,26 @@
+# Node modules and Vite cache
+FrontEnd/node_modules/
+FrontEnd/.vite/
+
+# Vite build output folders
+FrontEnd/dist/
+FrontEnd/build/
+
+# Backend build artifacts
+BackEnd/FinSight.api/bin/
+BackEnd/FinSight.api/obj/
+
+# IDE and editor files
+.vscode/
+*.user
+*.suo
+
+# Git files
+.git/
+.gitignore
+
+# Docs
+*.md
+
+# Dockerfiles to avoid recursion
+**/Dockerfile
