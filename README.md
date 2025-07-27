@@ -31,6 +31,24 @@ FinSight is a full-stack finance tracking application built with a React fronten
 - Initial data seeded with placeholder stock records for testing and frontend integration.
 
 ---
+## Docker
+
+This project uses Docker to containerize the backend and frontend applications for consistent development and deployment environments.
+
+### Backend
+
+- The backend API is containerized with a multi-stage Dockerfile located at `BackEnd/FinSight.api/Dockerfile`.
+- To build the backend Docker image:
+
+  ```bash
+  docker build -t finsight-api -f BackEnd/FinSight.api/Dockerfile .
+- To run the backend container locally, exposing port 8080:
+  ```bash
+  docker run -p 8080:8080 finsight-api
+- The API listens on http://localhost:8080 inside the container. HTTPS is disabled inside Docker for simplicity.
+
+### Frontend(yet to be containerized)
+---
 
 ## Technical Highlights
 
@@ -45,7 +63,7 @@ FinSight is a full-stack finance tracking application built with a React fronten
 
 - Refine CORS policy for production with environment-specific origins.  
 - Enhance frontend UI and state management.  
-- Containerize the application using Docker.  
+- Containerize the application using Docker.  (
 - Set up CI/CD workflows via GitHub Actions for automated testing and deployment.  
 - Deploy to cloud platform (Azure, AWS, or similar).
 
