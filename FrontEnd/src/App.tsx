@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 type Stock = {
@@ -18,7 +16,7 @@ function App() {
     const fetchStocks = async () => {
       try {
         const response = await fetch(
-          "https://localhost:7206/api/PlaceholderStock"
+          "http://host.docker.internal:8080/api/PlaceholderStock"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
