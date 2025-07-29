@@ -24,3 +24,6 @@ BackEnd/FinSight.api/obj/
 
 # Dockerfiles to avoid recursion
 **/Dockerfile
+
+.env
+*.local
