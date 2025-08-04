@@ -40,3 +40,8 @@ Backend/FinSight.api/appsettings.Development.json
 # === OS / System Files ===
 .DS_Store
 Thumbs.db
+
+
+#environment variables
+.env
+FrontEnd/.env
