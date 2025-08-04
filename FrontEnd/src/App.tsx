@@ -15,9 +15,8 @@ function App() {
   useEffect(() => {
     const fetchStocks = async () => {
       try {
-        const response = await fetch(
-          "http://host.docker.internal:8080/api/PlaceholderStock"
-        );
+        const response = await fetch("/api/PlaceholderStock");
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

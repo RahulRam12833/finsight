@@ -12,12 +12,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var saPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
+
+var finalConnectionString = $"{baseConnectionString}Password={saPassword};";
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(finalConnectionString));
 
 builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
 var app = builder.Build();
 
+// Apply migrations on startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+    dbContext.Database.Migrate();
+
+    DbInitializer.Initialize(dbContext);
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
