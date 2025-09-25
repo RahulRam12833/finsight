@@ -1,0 +1,57 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install latest Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy Backend Container App
+      - name: Deploy Backend Container App
+        run: |
+          # Register GHCR credentials for the backend container app
+          az containerapp registry set \
+            --name finsight-backend \
+            --resource-group finsightRG \
+            --server ghcr.io \
+            --username rahulram12833 \
+            --password ${{ secrets.CR_PAT }}
+
+          # Update container app with the latest image
+          az containerapp update \
+            --name finsight-backend \
+            --resource-group finsightRG \
+            --image ghcr.io/rahulram12833/finsight-backend:latest
+
+      # Deploy Frontend Container App
+      - name: Deploy Frontend Container App
+        run: |
+          az containerapp registry set \
+            --name finsight-frontend \
+            --resource-group finsightRG \
+            --server ghcr.io \
+            --username rahulram12833 \
+            --password ${{ secrets.CR_PAT }}
+
+          az containerapp update \
+            --name finsight-frontend \
+            --resource-group finsightRG \
+            --image ghcr.io/rahulram12833/finsight-frontend:latest
