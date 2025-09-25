@@ -26,13 +26,13 @@ jobs:
           az containerapp secret set \
             --name finsight-backend \
             --resource-group finsightRG \
-            --secrets GHCR_PAT=${{ secrets.CR_PAT }}
+            --secrets ghcr-pat=${{ secrets.CR_PAT }}
 
           az containerapp update \
             --name finsight-backend \
             --resource-group finsightRG \
             --image ghcr.io/rahulram12833/finsight-backend:latest \
-            --registry-secret GHCR_PAT
+            --registry-secret ghcr-pat
 
       # deploy frontend container app
       - name: Deploy Frontend Container App
@@ -40,10 +40,10 @@ jobs:
           az containerapp secret set \
             --name finsight-frontend \
             --resource-group finsightRG \
-            --secrets GHCR_PAT=${{ secrets.CR_PAT }}
+            --secrets ghcr-pat=${{ secrets.CR_PAT }}
 
           az containerapp update \
             --name finsight-frontend \
-            --resource-group finsightRG\
+            --resource-group finsightRG \
             --image ghcr.io/rahulram12833/finsight-frontend:latest \
-            --registry-secret GHCR_PAT
+            --registry-secret ghcr-pat
