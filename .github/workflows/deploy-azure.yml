@@ -15,16 +15,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install latest Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Set registry credentials and deploy backend container app
+      # Deploy Backend Container App
       - name: Deploy Backend Container App
         run: |
-          # Register GHCR credentials for the container app
-          az containerapp registry credential set \
+          # Register GHCR credentials for the backend container app
+          az containerapp registry set \
             --name finsight-backend \
             --resource-group finsightRG \
             --server ghcr.io \
@@ -37,10 +41,10 @@ jobs:
             --resource-group finsightRG \
             --image ghcr.io/rahulram12833/finsight-backend:latest
 
-      # Set registry credentials and deploy frontend container app
+      # Deploy Frontend Container App
       - name: Deploy Frontend Container App
         run: |
-          az containerapp registry credential set \
+          az containerapp registry set \
             --name finsight-frontend \
             --resource-group finsightRG \
             --server ghcr.io \
