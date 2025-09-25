@@ -32,7 +32,9 @@ jobs:
             --name finsight-backend \
             --resource-group finsightRG \
             --image ghcr.io/rahulram12833/finsight-backend:latest \
-            --registry-secret ghcr-pat
+            --registry-server ghcr.io \
+            --registry-username rahulram12833 \
+            --registry-password ${{ secrets.CR_PAT }}
 
       # deploy frontend container app
       - name: Deploy Frontend Container App
@@ -46,4 +48,6 @@ jobs:
             --name finsight-frontend \
             --resource-group finsightRG \
             --image ghcr.io/rahulram12833/finsight-frontend:latest \
-            --registry-secret ghcr-pat
+            --registry-server ghcr.io \
+            --registry-username rahulram12833 \
+            --registry-password ${{ secrets.CR_PAT }}
