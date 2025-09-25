@@ -20,32 +20,34 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # deploy backend container app
+      # Set registry credentials and deploy backend container app
       - name: Deploy Backend Container App
         run: |
-          az containerapp secret set \
+          # Register GHCR credentials for the container app
+          az containerapp registry credential set \
             --name finsight-backend \
             --resource-group finsightRG \
-            --secrets ghcr-pat=${{ secrets.CR_PAT }}
+            --server ghcr.io \
+            --username rahulram12833 \
+            --password ${{ secrets.CR_PAT }}
 
+          # Update container app with the latest image
           az containerapp update \
             --name finsight-backend \
             --resource-group finsightRG \
-            --image ghcr.io/rahulram12833/finsight-backend:latest \
-            --registry-username rahulram12833 \
-            --registry-password-secret ghcr-pat
+            --image ghcr.io/rahulram12833/finsight-backend:latest
 
-      # deploy frontend container app
+      # Set registry credentials and deploy frontend container app
       - name: Deploy Frontend Container App
         run: |
-          az containerapp secret set \
+          az containerapp registry credential set \
             --name finsight-frontend \
             --resource-group finsightRG \
-            --secrets ghcr-pat=${{ secrets.CR_PAT }}
+            --server ghcr.io \
+            --username rahulram12833 \
+            --password ${{ secrets.CR_PAT }}
 
           az containerapp update \
             --name finsight-frontend \
             --resource-group finsightRG \
-            --image ghcr.io/rahulram12833/finsight-frontend:latest \
-            --registry-username rahulram12833 \
-            --registry-password-secret ghcr-pat
+            --image ghcr.io/rahulram12833/finsight-frontend:latest
