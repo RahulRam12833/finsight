@@ -1,0 +1,44 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # deploy backend container app
+      - name: Deploy Backend Container App
+        run: |
+          az containerapp update \
+            --name finsight-backend \
+            --resource-group finsight-rg \
+            --image ghcr.io/rahulram12833/finsight-backend:latest \
+            --registry-server ghcr.io \
+            --registry-username rahulram12833 \
+            --registry-password ${{ secrets.CR_PAT }}
+
+      # deploy frontend container app
+      - name: Deploy Frontend Container App
+        run: |
+          az containerapp update \
+            --name finsight-frontend \
+            --resource-group finsight-rg \
+            --image ghcr.io/rahulram12833/finsight-frontend:latest \
+            --registry-server ghcr.io \
+            --registry-username rahulram12833 \
+            --registry-password ${{ secrets.CR_PAT }}
