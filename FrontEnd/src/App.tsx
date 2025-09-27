@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Card from "./Components/Card/Card";
+import CardList from "./Components/CardList/CardList";
 
 type Stock = {
   id: number;
@@ -33,23 +35,8 @@ function App() {
 
   return (
     <>
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4 text-blue-600">
-          FinSight Stocks
-        </h1>
-        {error && <p className="text-red-500">{error}</p>}
-
-        <ul className="space-y-4">
-          {stocks.map((stock) => (
-            <li key={stock.id} className="border p-2 rounded shadow">
-              <div className="flex justify-between">
-                <span className="text-gray-700">{stock.symbol}</span>
-                <span className="text-gray-700">{stock.companyName}</span>
-                <span className="text-green-400">{stock.purchase}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="App">
+        <CardList />
       </div>
     </>
   );
