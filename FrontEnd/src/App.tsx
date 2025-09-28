@@ -3,7 +3,7 @@ import "./App.css";
 import Card from "./Components/Card/Card";
 import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
-
+import { searchCompanies } from "./api";
 type Stock = {
   id: number;
   symbol: string;
@@ -31,9 +31,10 @@ function App() {
       }
     };
 
-    fetchStocks();
+    //fetchStocks();
   }, []);
 
+  console.log(searchCompanies("tsla"));
   return (
     <>
       <div className="App">
