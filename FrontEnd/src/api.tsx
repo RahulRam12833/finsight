@@ -6,12 +6,12 @@ interface SearchResult {
 }
 export const searchCompanies = async (query: string) => {
   try {
-    const response = await axios.get(
-      `https://financialmodelingprep.com/stable/search-name`,
+    const response = await axios.get<SearchResult>(
+      `https://financialmodelingprep.com/stable/search-symbol`,
       {
         params: {
           query,
-          limit: 10,
+          limit: 100,
           exchange: "NASDAQ",
           apikey: import.meta.env.VITE_FIN_API_KEY,
         },

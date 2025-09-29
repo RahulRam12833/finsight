@@ -4,6 +4,7 @@ import Card from "./Components/Card/Card";
 import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
 import { searchCompanies } from "./api";
+import type { CompanySearch } from "./company";
 type Stock = {
   id: number;
   symbol: string;
@@ -34,12 +35,32 @@ function App() {
     //fetchStocks();
   }, []);
 
-  console.log(searchCompanies("tsla"));
+  const [search, setSearch] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    console.log(e);
+  };
+
+  const onClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setSearchResults([]);
+    const result = await searchCompanies(search);
+    if (typeof result === "string") {
+      setServerError(result);
+    } else if (Array.isArray(result)) {
+      setSearchResults(result);
+    }
+  };
+
   return (
     <>
       <div className="App">
-        <Search />
-        <CardList />
+        <Search onClick={onClick} search={search} handleChange={handleChange} />
+        {serverError && <h1>{serverError}</h1>}
+        <CardList searchResults={searchResults} />
       </div>
     </>
   );
