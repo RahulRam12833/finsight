@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type SyntheticEvent } from "react";
 import "./App.css";
 import Card from "./Components/Card/Card";
 import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
 import { searchCompanies } from "./api";
 import type { CompanySearch } from "./company";
+import PortfolioList from "./Components/PortfolioList/PortfolioList";
 type Stock = {
   id: number;
   symbol: string;
@@ -38,15 +39,15 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [portfolioData, setPortfolioData] = useState<string[]>([]);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     console.log(e);
   };
 
-  const onClick = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onSearchSubmit = async (e: SyntheticEvent) => {
     setSearchResults([]);
+    e.preventDefault();
     const result = await searchCompanies(search);
     if (typeof result === "string") {
       setServerError(result);
@@ -55,12 +56,25 @@ function App() {
     }
   };
 
+  const onPortfolioSubmit = async (e: any) => {
+    e.preventDefault();
+    if (portfolioData.includes(e.currentTarget[0].value)) return;
+    setPortfolioData([...portfolioData, e.currentTarget[0].value]);
+  };
   return (
     <>
       <div className="App">
-        <Search onClick={onClick} search={search} handleChange={handleChange} />
+        <Search
+          onSearchSubmit={onSearchSubmit}
+          search={search}
+          handleSearchChange={handleSearchChange}
+        />
+        <PortfolioList portfolioData={portfolioData} />
         {serverError && <h1>{serverError}</h1>}
-        <CardList searchResults={searchResults} />
+        <CardList
+          searchResults={searchResults}
+          onPortfolioSubmit={onPortfolioSubmit}
+        />
       </div>
     </>
   );

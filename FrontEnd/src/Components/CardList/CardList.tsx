@@ -5,15 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 
 interface Props {
   searchResults: CompanySearch[];
+  onPortfolioSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const CardList: React.FC<Props> = ({ searchResults }: Props): JSX.Element => {
+const CardList: React.FC<Props> = ({
+  searchResults,
+  onPortfolioSubmit,
+}: Props): JSX.Element => {
   return (
     <>
       {searchResults.length > 0 ? (
         searchResults.map((result) => {
           return (
-            <Card id={result.symbol} key={uuidv4()} searchResult={result} />
+            <Card
+              id={result.symbol}
+              key={uuidv4()}
+              searchResult={result}
+              onPortfolioSubmit={onPortfolioSubmit}
+            />
           );
         })
       ) : (
