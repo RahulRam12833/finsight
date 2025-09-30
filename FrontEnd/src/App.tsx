@@ -5,7 +5,7 @@ import CardList from "./Components/CardList/CardList";
 import Search from "./Components/Search/Search";
 import { searchCompanies } from "./api";
 import type { CompanySearch } from "./company";
-import PortfolioList from "./Components/PortfolioList/PortfolioList";
+import PortfolioList from "./Components/Portfolio/PortfolioList/PortfolioList";
 type Stock = {
   id: number;
   symbol: string;
@@ -61,6 +61,14 @@ function App() {
     if (portfolioData.includes(e.currentTarget[0].value)) return;
     setPortfolioData([...portfolioData, e.currentTarget[0].value]);
   };
+
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    setPortfolioData(
+      portfolioData.filter((item) => item !== e.currentTarget[0].value)
+    );
+  };
+
   return (
     <>
       <div className="App">
@@ -69,7 +77,10 @@ function App() {
           search={search}
           handleSearchChange={handleSearchChange}
         />
-        <PortfolioList portfolioData={portfolioData} />
+        <PortfolioList
+          portfolioData={portfolioData}
+          onPortfolioDelete={onPortfolioDelete}
+        />
         {serverError && <h1>{serverError}</h1>}
         <CardList
           searchResults={searchResults}
