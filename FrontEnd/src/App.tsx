@@ -6,6 +6,8 @@ import Search from "./Components/Search/Search";
 import { searchCompanies } from "./api";
 import type { CompanySearch } from "./company";
 import PortfolioList from "./Components/Portfolio/PortfolioList/PortfolioList";
+import Navbar from "./Components/Navbar/Navbar";
+
 type Stock = {
   id: number;
   symbol: string;
@@ -72,6 +74,7 @@ function App() {
   return (
     <>
       <div className="App">
+        <Navbar />
         <Search
           onSearchSubmit={onSearchSubmit}
           search={search}
