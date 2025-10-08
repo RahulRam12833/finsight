@@ -1,6 +1,6 @@
 import React, { type JSX } from "react";
 import "./Card.css";
-import type { CompanySearch } from "../../company";
+import type { CompanySearch } from "../../alphacompany.d.ts";
 import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 import { Link } from "react-router-dom";
 
@@ -29,9 +29,7 @@ const Card: React.FC<Props> = ({
           {searchResult.name} ({searchResult.symbol})
         </Link>
         <p className="text-blue-900">{searchResult.currency}</p>
-        <p className="font-bold ">
-          {searchResult.exchange} - {searchResult.exchangeFullName}
-        </p>
+        <p className="font-bold ">{searchResult.name}</p>
       </div>
       <AddPortfolio
         onPortfolioSubmit={onPortfolioSubmit}

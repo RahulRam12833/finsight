@@ -1,5 +1,5 @@
 import React, { useState, type SyntheticEvent } from "react";
-import type { CompanySearch } from "../../company";
+import type { CompanySearch } from "../../alphacompany.d.ts";
 import { searchCompanies } from "../../api";
 import Navbar from "../../Components/Navbar/Navbar";
 import Search from "../../Components/Search/Search";
@@ -26,6 +26,7 @@ const SearchPage = (props: Props) => {
       setServerError(result);
     } else if (Array.isArray(result)) {
       setSearchResults(result);
+      console.log(result);
     }
   };
 

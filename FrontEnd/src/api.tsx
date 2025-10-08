@@ -1,23 +1,37 @@
 import axios from "axios";
-import type { CompanyProfile, CompanySearch } from "./company";
+import type { CompanyProfile } from "./company";
+
+import type { CompanySearch } from "./alphacompany.d.ts";
 
 interface SearchResult {
-  data: CompanySearch[];
+  bestMatches: CompanySearch[];
 }
-export const searchCompanies = async (query: string) => {
+export const searchCompanies = async (keywords: string) => {
   try {
     const response = await axios.get<SearchResult>(
-      `https://financialmodelingprep.com/stable/search-symbol`,
+      `https://www.alphavantage.co/query`,
       {
         params: {
-          query,
-          limit: 100,
-          exchange: "NASDAQ",
-          apikey: import.meta.env.VITE_FIN_API_KEY,
+          function: "SYMBOL_SEARCH",
+          keywords,
+          apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
       }
     );
-    return response.data;
+    const matches = response.data.bestMatches;
+    if (!matches) return [];
+
+    return matches.map((m: any) => ({
+      symbol: m["1. symbol"],
+      name: m["2. name"],
+      type: m["3. type"],
+      region: m["4. region"],
+      marketOpen: m["5. marketOpen"],
+      marketClose: m["6. marketClose"],
+      timezone: m["7. timezone"],
+      currency: m["8. currency"],
+      matchScore: m["9. matchScore"],
+    }));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Error fetching company data:", error.message);
