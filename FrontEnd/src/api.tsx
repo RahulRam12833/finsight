@@ -1,8 +1,7 @@
 import axios from "axios";
-import type { CompanyProfile } from "./company";
+//import type { CompanyProfile } from "./company";
 
-import type { CompanySearch } from "./alphacompany.d.ts";
-
+import type { CompanyProfileType, CompanySearch } from "./alphacompany.d.ts";
 interface SearchResult {
   bestMatches: CompanySearch[];
 }
@@ -19,6 +18,7 @@ export const searchCompanies = async (keywords: string) => {
       }
     );
     const matches = response.data.bestMatches;
+    console.log(response.data);
     if (!matches) return [];
 
     return matches.map((m: any) => ({
@@ -45,11 +45,12 @@ export const searchCompanies = async (keywords: string) => {
 
 export const getCompanyProfile = async (symbol: string) => {
   try {
-    const response = await axios.get<CompanyProfile[]>(
-      "https://financialmodelingprep.com/stable/profile",
+    const response = await axios.get<CompanyProfileType>(
+      "https://www.alphavantage.co/query",
       {
         params: {
           symbol, // symbol=AAPL
+          function: "OVERVIEW",
           apikey: import.meta.env.VITE_FIN_API_KEY,
         },
       }

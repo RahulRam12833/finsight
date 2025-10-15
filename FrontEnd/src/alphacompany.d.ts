@@ -14,10 +14,10 @@ export interface CompanySearch {
 }
 
 // --- Company Profile ---
-export interface CompanyProfile {
+export interface CompanyProfileType {
   symbol: string;
   assetType?: string;      // e.g., "Common Stock"
-  name?: string;
+  name: string;
   description?: string;
   cik?: string;
   exchange?: string;
