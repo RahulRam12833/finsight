@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { CompanyProfileType } from "../../alphacompany";
 import { useOutletContext } from "react-router-dom";
-import { getCompanyProfile } from "../../api";
 import RatioList from "../RatioList/RatioList";
-import { mockCompanyProfile } from "../../mockCompanyProfile";
 
 type Props = {};
 
@@ -95,21 +93,8 @@ const tableConfig = [
 ];
 
 const CompanyProfile = (props: Props) => {
-  const symbol = useOutletContext<string>();
-  const [companyData, setCompanyData] = useState<CompanyProfileType>();
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      const value = await getCompanyProfile(symbol);
-      if (typeof value === "object" && value !== null) {
-        //setCompanyData(value);
-        setCompanyData(mockCompanyProfile);
-      }
-      console.log(value);
-    };
-
-    fetchCompanyData();
-  }, [symbol]);
-
+  const companyData = useOutletContext<CompanyProfileType>();
+  console.log("Company Data in Profile:", companyData);
   return (
     <>
       {companyData ? (

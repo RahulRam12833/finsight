@@ -6,16 +6,18 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 import { mockCompanyProfile } from "../../mockCompanyProfile.ts";
+import { Outlet, useParams } from "react-router-dom";
 
 interface Props {}
 
 const CompanyPage = (props: Props) => {
-  let symbol = window.location.pathname.split("/")[2];
-  const [company, setCompany] =
-    useState<CompanyProfileType>(mockCompanyProfile);
+  const { symbol } = useParams<{ symbol: string }>();
+  const [company, setCompany] = useState<CompanyProfileType>();
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!symbol) return;
+
     const fetchCompanyData = async () => {
       try {
         const data = await getCompanyProfile(symbol);
@@ -31,13 +33,17 @@ const CompanyPage = (props: Props) => {
     fetchCompanyData();
   }, [symbol]);
 
+  {
+    if (!symbol) return <div>No symbol provided</div>;
+  }
+
   return (
     <>
       {error && <h1>{error}</h1>}
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
-          <CompanyDashboard symbol={symbol}>
+          <CompanyDashboard company={company}>
             <Tile title="Company Name" subTitle={company.name} />
             <Tile title="Symbol" subTitle={company.symbol} />
           </CompanyDashboard>

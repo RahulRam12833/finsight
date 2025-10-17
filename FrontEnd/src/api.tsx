@@ -1,7 +1,11 @@
 import axios from "axios";
 //import type { CompanyProfile } from "./company";
 
-import type { CompanyProfileType, CompanySearch } from "./alphacompany.d.ts";
+import type {
+  CompanyProfileType,
+  CompanySearch,
+  IncomeStatementType,
+} from "./alphacompany.d.ts";
 interface SearchResult {
   bestMatches: CompanySearch[];
 }
@@ -55,10 +59,81 @@ export const getCompanyProfile = async (symbol: string) => {
         },
       }
     );
-    return response.data;
+
+    const data = response.data;
+    const formattedData = {
+      symbol: data.symbol,
+      name: data.name,
+      description: data.description,
+      sector: data.sector,
+      industry: data.industry,
+      marketCapitalization: data.marketCapitalization,
+      EBITDA: data.EBITDA,
+      PERatio: data.PERatio,
+      PEGRatio: data.PEGRatio,
+      bookValue: data.bookValue,
+      dividendPerShare: data.dividendPerShare,
+      dividendYield: data.dividendYield,
+      eps: data.eps,
+      revenuePerShareTTM: data.revenuePerShareTTM,
+      profitMargin: data.profitMargin,
+      operatingMarginTTM: data.operatingMarginTTM,
+      returnOnAssetsTTM: data.returnOnAssetsTTM,
+      returnOnEquityTTM: data.returnOnEquityTTM,
+      beta: data.beta,
+      fiftyTwoWeekHigh: data.fiftyTwoWeekHigh,
+      fiftyTwoWeekLow: data.fiftyTwoWeekLow,
+      sharesOutstanding: data.sharesOutstanding,
+      logo: data.logo,
+    };
+
+    return formattedData;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Error fetching company profile:", error.message);
+      return error.message;
+    } else {
+      console.error("Unexpected error:", error);
+      return "An unexpected error has occurred";
+    }
+  }
+};
+
+export const getIncomeStatement = async (symbol: string) => {
+  try {
+    const response = await axios.get<IncomeStatementType>(
+      "https://www.alphavantage.co/query",
+      {
+        params: {
+          symbol, // symbol=AAPL
+          function: "INCOME_STATEMENT",
+          apikey: import.meta.env.VITE_FIN_API_KEY,
+        },
+      }
+    );
+
+    const data = response.data;
+    const formattedIncomeData = {
+      symbol: data.symbol,
+      annualReports: data.annualReports.map((r) => ({
+        fiscalDateEnding: r.fiscalDateEnding,
+        totalRevenue: r.totalRevenue,
+        grossProfit: r.grossProfit,
+        operatingIncome: r.operatingIncome,
+        netIncome: r.netIncome,
+      })),
+      quarterlyReports: data.quarterlyReports.map((r) => ({
+        fiscalDateEnding: r.fiscalDateEnding,
+        totalRevenue: r.totalRevenue,
+        grossProfit: r.grossProfit,
+        operatingIncome: r.operatingIncome,
+        netIncome: r.netIncome,
+      })),
+    };
+    return formattedIncomeData;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching income statement:", error.message);
       return error.message;
     } else {
       console.error("Unexpected error:", error);

@@ -53,7 +53,7 @@ export interface CompanyProfileType {
 }
 
 // --- Income Statement ---
-export interface IncomeStatement {
+export interface IncomeStatementType {
   symbol: string;
   annualReports: IncomeReport[];
   quarterlyReports: IncomeReport[];
