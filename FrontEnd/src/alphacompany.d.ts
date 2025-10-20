@@ -86,7 +86,7 @@ export interface IncomeReport {
 }
 
 // --- Balance Sheet ---
-export interface BalanceSheet {
+export interface BalanceSheetType {
   symbol: string;
   annualReports: BalanceReport[];
   quarterlyReports: BalanceReport[];
@@ -105,9 +105,16 @@ export interface BalanceReport {
   propertyPlantEquipment?: string;
   accumulatedDepreciationAmortizationPPE?: string;
   intangibleAssets?: string;
+  intangibleAssetsExcludingGoodwill?: string;
   goodwill?: string;
   investments?: string;
   longTermInvestments?: string;
+  shortTermInvestments?: string;
+  otherCurrentAssets?: string;
+  otherNonCurrentAssets?: string;
+  totalLiabilities?: string;
+  totalCurrentLiabilities?: string;
+  currentDebt?: string;
   shortTermDebt?: string;
   totalCurrentLiabilities?: string;
   currentAccountsPayable?: string;
@@ -121,7 +128,7 @@ export interface BalanceReport {
 }
 
 // --- Cash Flow ---
-export interface CashFlow {
+export interface CashFlowType {
   symbol: string;
   annualReports: CashFlowReport[];
   quarterlyReports: CashFlowReport[];
@@ -135,22 +142,28 @@ export interface CashFlowReport {
   proceedsFromOperatingActivities?: string;
   changeInOperatingLiabilities?: string;
   changeInOperatingAssets?: string;
-  depreciation?: string;
+  depreciationDepletionAndAmortization?: string;
   capitalExpenditures?: string;
-  investments?: string;
-  investingCashflow?: string;
+  changeInReceivables?: string;
+  changeInInventory?: string;
+  profitLoss?: string;
+  cashflowFromInvestment?: string;
+  cashflowFromFinancing?: string;
   proceedsFromRepaymentsOfShortTermDebt?: string;
   paymentsForRepurchaseOfCommonStock?: string;
   paymentsForRepurchaseOfEquity?: string;
-  dividendsPaid?: string;
-  financingCashflow?: string;
-  proceedsFromIssuanceOfStock?: string;
-  proceedsFromLongTermDebtAndCapitalSecurities?: string;
-  paymentsForRepaymentOfLongTermDebtAndCapitalSecurities?: string;
-  effectOfExchangeRate?: string;
-  netCashFlow?: string;
-  cashAtBeginningOfPeriod?: string;
-  cashAtEndOfPeriod?: string;
+  paymentsForRepurchaseOfPreferredStock?: string;
+  dividendPayout?: string;
+  dividendPayoutCommonStock?: string;
+  dividendPayoutPreferredStock?: string;
+  proceedsFromIssuanceOfCommonStock?: string;
+  proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet?: string;
+  proceedsFromIssuanceOfPreferredStock?: string;
+  proceedsFromRepurchaseOfEquity?: string;
+  proceedsFromSaleOfTreasuryStock?: string;
+  changeInCashAndCashEquivalents?: string;
+  changeInExchangeRate?: string;
+  netIncome?: string;
 }
 
 // --- Historical Dividends ---
