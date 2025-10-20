@@ -4,6 +4,7 @@ import { useOutletContext, useParams } from "react-router-dom";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import mockBalanceSheet from "../../mockBalanceSheet";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 
@@ -70,10 +71,17 @@ const BalanceSheet = (props: Props) => {
     const getBalanceData = async () => {
       try {
         const data = await getBalanceSheet(symbol);
-        if (typeof data !== "string" && data && typeof data === "object")
-          //setBalanceData(data);
+        if (typeof data !== "string" && data && typeof data === "object") {
+          if (data.annualReports && data.annualReports.length > 0) {
+            setBalanceData(data);
+          } else {
+            console.warn("No balance sheet reports found, using mock data");
+            setBalanceData(mockBalanceSheet);
+          }
+        } else {
+          console.warn("Invalid data type, using mock data");
           setBalanceData(mockBalanceSheet);
-        else if (typeof data === "string") setError(data);
+        }
       } catch (error) {
         console.error("Error fetching company data:", error);
       }
@@ -85,7 +93,7 @@ const BalanceSheet = (props: Props) => {
       {balanceData ? (
         <RatioList config={config} data={balanceData.annualReports[0]} />
       ) : (
-        <>No balance sheet available</>
+        <Spinner />
       )}
     </>
   );

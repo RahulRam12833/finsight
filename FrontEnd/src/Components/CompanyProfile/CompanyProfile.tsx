@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { CompanyProfileType } from "../../alphacompany";
 import { useOutletContext } from "react-router-dom";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 
@@ -100,7 +101,7 @@ const CompanyProfile = (props: Props) => {
       {companyData ? (
         <RatioList config={tableConfig} data={companyData} />
       ) : (
-        <>No company data available</>
+        <Spinner />
       )}
     </>
   );

@@ -5,6 +5,7 @@ import { getIncomeStatement } from "../../api";
 import { useParams } from "react-router-dom";
 import { mockIncomeData } from "../../mockIncomeData";
 import Table from "../Table/Table";
+import Spinner from "../Spinner/Spinner";
 type Props = {};
 
 const incomeTableConfig = [
@@ -60,17 +61,26 @@ const IncomeStatement = (props: Props) => {
     const fetchIncomeData = async () => {
       try {
         const data = await getIncomeStatement(symbol);
-        //console.log(data);
-        if (typeof data !== "string" && data && typeof data === "object")
-          //setIncomeData(data);
+
+        if (typeof data !== "string" && data && typeof data === "object") {
+          if (data.annualReports && data.annualReports.length > 0) {
+            setIncomeData(data);
+          } else {
+            console.warn("No income reports found, using mock data");
+            setIncomeData(mockIncomeData);
+          }
+        } else {
+          console.warn("Invalid data type, using mock data");
           setIncomeData(mockIncomeData);
-        else if (typeof data === "string") setError(data);
+        }
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        console.error("Error fetching income statement data:", error);
+        setIncomeData(mockIncomeData);
+        setError("Failed to fetch data, using mock data.");
       }
     };
+
     fetchIncomeData();
-    console.log(incomeData);
   }, [symbol]);
 
   return (
@@ -78,7 +88,7 @@ const IncomeStatement = (props: Props) => {
       {incomeData ? (
         <Table config={incomeTableConfig} data={incomeData.annualReports} />
       ) : (
-        <>No income data available</>
+        <Spinner />
       )}
     </>
   );

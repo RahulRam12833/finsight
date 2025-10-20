@@ -7,6 +7,7 @@ import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard
 import Tile from "../../Components/Tile/Tile";
 import { mockCompanyProfile } from "../../mockCompanyProfile.ts";
 import { Outlet, useParams } from "react-router-dom";
+import Spinner from "../../Components/Spinner/Spinner.tsx";
 
 interface Props {}
 
@@ -49,7 +50,7 @@ const CompanyPage = (props: Props) => {
           </CompanyDashboard>
         </div>
       ) : (
-        <div>No company data available</div>
+        <Spinner />
       )}
     </>
   );
