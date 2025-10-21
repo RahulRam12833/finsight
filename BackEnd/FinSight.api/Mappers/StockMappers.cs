@@ -21,5 +21,17 @@ namespace FinSight.api.Mappers
                 DividendYield = stockModel.DividendYield
             };
         }
+
+        public static Stock ToStockFromCreateDTO(this CreateStockRequestDto stockDto)
+        {
+            return new Stock
+            {
+                Symbol = stockDto.Symbol,
+                Name = stockDto.Name,
+                Industry = stockDto.Industry,
+                MarketCapitalization = stockDto.MarketCapitalization,
+                DividendYield = stockDto.DividendYield
+            };
+        }
     }
 }

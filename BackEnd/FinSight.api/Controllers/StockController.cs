@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinSight.api.Data;
+using FinSight.api.DTOs.Stock;
 using FinSight.api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,57 @@ namespace FinSight.api.Controllers
                 return NotFound();
             }
             return Ok(stock.ToStockDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+        {
+            var stockModel = stockDto.ToStockFromCreateDTO();
+            _context.Stock.Add(stockModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+
+        public IActionResult Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
+        {
+            var stockModel = _context.Stock.FirstOrDefault(s => s.Id == id);
+
+            if (stockModel == null)
+            {
+                return NotFound();
+            }
+
+            stockModel.Symbol = updateDto.Symbol;
+            stockModel.Name = updateDto.Name;
+            stockModel.Industry = updateDto.Industry;
+            stockModel.MarketCapitalization = updateDto.MarketCapitalization;
+            stockModel.DividendYield = updateDto.DividendYield;
+
+            _context.SaveChanges();
+
+            return Ok(stockModel.ToStockDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var stockModel = _context.Stock.FirstOrDefault(s => s.Id == id);
+
+            if (stockModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Stock.Remove(stockModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }
