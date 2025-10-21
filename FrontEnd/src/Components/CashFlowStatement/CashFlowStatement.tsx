@@ -7,41 +7,48 @@ import type { CashFlowReport, CashFlowType } from "../../alphacompany";
 import { getCashFlowStatement } from "../../api";
 import mockCashFlow from "../../mockCashFlow";
 import Spinner from "../Spinner/Spinner";
+import { safeFormatNumber } from "../../Helpers/NumberFormatting";
 
 type Props = {};
 
-const config = [
+export const cashFlowConfig = [
   {
     label: "Date",
-    render: (company: CashFlowReport) => company.fiscalDateEnding,
+    render: (company: CashFlowReport) => company.fiscalDateEnding ?? "None", // dates are strings
   },
   {
     label: "Operating Cashflow",
-    render: (company: CashFlowReport) => company.operatingCashflow,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.operatingCashflow),
   },
   {
     label: "Investing Cashflow",
-    render: (company: CashFlowReport) => company.cashflowFromInvestment,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.cashflowFromInvestment),
   },
   {
     label: "Financing Cashflow",
-    render: (company: CashFlowReport) => company.cashflowFromFinancing,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.cashflowFromFinancing),
   },
   {
     label: "Capital Expenditures",
-    render: (company: CashFlowReport) => company.capitalExpenditures,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.capitalExpenditures),
   },
   {
     label: "Dividends Paid",
-    render: (company: CashFlowReport) => company.dividendPayout,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.dividendPayout),
   },
   {
     label: "Net Income",
-    render: (company: CashFlowReport) => company.netIncome,
+    render: (company: CashFlowReport) => safeFormatNumber(company.netIncome),
   },
   {
     label: "Change In Cash",
-    render: (company: CashFlowReport) => company.changeInCashAndCashEquivalents,
+    render: (company: CashFlowReport) =>
+      safeFormatNumber(company.changeInCashAndCashEquivalents),
   },
 ];
 
@@ -83,7 +90,7 @@ const CashflowStatement = (props: Props) => {
   }, [symbol]);
 
   return cashFlowData ? (
-    <Table config={config} data={cashFlowData.annualReports}></Table>
+    <Table config={cashFlowConfig} data={cashFlowData.annualReports}></Table>
   ) : (
     <Spinner />
   );

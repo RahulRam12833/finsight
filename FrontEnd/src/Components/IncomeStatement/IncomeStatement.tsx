@@ -6,44 +6,47 @@ import { useParams } from "react-router-dom";
 import { mockIncomeData } from "../../mockIncomeData";
 import Table from "../Table/Table";
 import Spinner from "../Spinner/Spinner";
+import { safeFormatNumber } from "../../Helpers/NumberFormatting";
 type Props = {};
 
-const incomeTableConfig = [
+export const incomeTableConfig = [
   {
     label: "Date",
-    render: (report: IncomeReport) => report.fiscalDateEnding,
+    render: (report: IncomeReport) => report.fiscalDateEnding ?? "None",
   },
   {
     label: "Total Revenue",
-    render: (report: IncomeReport) => report.totalRevenue,
+    render: (report: IncomeReport) => safeFormatNumber(report.totalRevenue),
   },
   {
     label: "Cost Of Revenue",
-    render: (report: IncomeReport) => report.costOfRevenue,
+    render: (report: IncomeReport) => safeFormatNumber(report.costOfRevenue),
   },
   {
     label: "Operating Expenses",
-    render: (report: IncomeReport) => report.operatingExpenses,
+    render: (report: IncomeReport) =>
+      safeFormatNumber(report.operatingExpenses),
   },
   {
     label: "Depreciation & Amortization",
-    render: (report: IncomeReport) => report.depreciationAndAmortization,
+    render: (report: IncomeReport) =>
+      safeFormatNumber(report.depreciationAndAmortization),
   },
   {
     label: "Gross Profit",
-    render: (report: IncomeReport) => report.grossProfit,
+    render: (report: IncomeReport) => safeFormatNumber(report.grossProfit),
   },
   {
     label: "Operating Income",
-    render: (report: IncomeReport) => report.operatingIncome,
+    render: (report: IncomeReport) => safeFormatNumber(report.operatingIncome),
   },
   {
     label: "Income Before Tax",
-    render: (report: IncomeReport) => report.incomeBeforeTax,
+    render: (report: IncomeReport) => safeFormatNumber(report.incomeBeforeTax),
   },
   {
     label: "Net Income",
-    render: (report: IncomeReport) => report.netIncome,
+    render: (report: IncomeReport) => safeFormatNumber(report.netIncome),
   },
 ];
 

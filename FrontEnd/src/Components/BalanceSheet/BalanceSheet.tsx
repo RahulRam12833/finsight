@@ -5,57 +5,69 @@ import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import mockBalanceSheet from "../../mockBalanceSheet";
 import Spinner from "../Spinner/Spinner";
+import {
+  formatLargeMonetaryNumber,
+  safeFormatNumber,
+} from "../../Helpers/NumberFormatting";
 
 type Props = {};
 
-const config = [
+export const config = [
   {
     label: <div className="font-bold">Total Assets</div>,
-    render: (company: BalanceReport) => company.totalAssets,
+    render: (company: BalanceReport) => safeFormatNumber(company.totalAssets),
   },
   {
     label: "Current Assets",
-    render: (company: BalanceReport) => company.totalCurrentAssets,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.totalCurrentAssets),
   },
   {
     label: "Total Cash",
-    render: (company: BalanceReport) => company.cashAndShortTermInvestments,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.cashAndShortTermInvestments),
   },
   {
-    label: "Property & equipment",
-    render: (company: BalanceReport) => company.propertyPlantEquipment,
+    label: "Property & Equipment",
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.propertyPlantEquipment),
   },
   {
     label: "Intangible Assets",
-    render: (company: BalanceReport) => company.intangibleAssets,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.intangibleAssets),
   },
   {
     label: "Long Term Debt",
-    render: (company: BalanceReport) => company.longTermDebt,
+    render: (company: BalanceReport) => safeFormatNumber(company.longTermDebt),
   },
   {
     label: "Total Debt",
-    render: (company: BalanceReport) => company.currentDebt,
+    render: (company: BalanceReport) => safeFormatNumber(company.currentDebt),
   },
   {
-    label: <div className="font-bold">Total Liabilites</div>,
-    render: (company: BalanceReport) => company.totalLiabilities,
+    label: <div className="font-bold">Total Liabilities</div>,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.totalLiabilities),
   },
   {
     label: "Current Liabilities",
-    render: (company: BalanceReport) => company.totalCurrentLiabilities,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.totalCurrentLiabilities),
   },
   {
     label: "Long-Term Debt",
-    render: (company: BalanceReport) => company.longTermDebt,
+    render: (company: BalanceReport) => safeFormatNumber(company.longTermDebt),
   },
   {
     label: "Stakeholder's Equity",
-    render: (company: BalanceReport) => company.totalStockholdersEquity,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.totalStockholdersEquity),
   },
   {
     label: "Retained Earnings",
-    render: (company: BalanceReport) => company.retainedEarnings,
+    render: (company: BalanceReport) =>
+      safeFormatNumber(company.retainedEarnings),
   },
 ];
 
