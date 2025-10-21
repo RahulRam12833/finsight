@@ -13,6 +13,7 @@ namespace FinSight.api.Models
         public string Name { get; set; } = string.Empty;
         public string Industry { get; set; } = string.Empty;
         public long MarketCapitalization { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal DividendYield { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();

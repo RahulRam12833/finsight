@@ -12,12 +12,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var saPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
+//var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var saPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
 
-var finalConnectionString = $"{baseConnectionString}Password={saPassword};";
+//var finalConnectionString = $"{baseConnectionString}Password={saPassword};";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
-    options.UseSqlServer(finalConnectionString));
+    options.UseSqlServer(connectionString));
+
 
 builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
 var app = builder.Build();
@@ -30,6 +33,8 @@ using (var scope = app.Services.CreateScope())
 
     DbInitializer.Initialize(dbContext);
 }
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
