@@ -4,6 +4,11 @@ import HomePage from "../Pages/HomePage/HomePage";
 import CompanyPage from "../Pages/CompanyPage/CompanyPage";
 import SearchPage from "../Pages/SearchPage/SearchPage";
 
+import IncomeStatement from "../Components/IncomeStatement/IncomeStatement";
+import DesignPage from "../Pages/DesignPage/DesignPage";
+import CompanyProfile from "../Components/CompanyProfile/CompanyProfile";
+import BalanceSheet from "../Components/BalanceSheet/BalanceSheet";
+import CashFlowStatement from "../Components/CashFlowStatement/CashFlowStatement";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -18,8 +23,30 @@ export const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
+        path: "design-guide",
+        element: <DesignPage />,
+      },
+      {
         path: "company/:symbol",
         element: <CompanyPage />,
+        children: [
+          {
+            path: "company-profile",
+            element: <CompanyProfile />,
+          },
+          {
+            path: "income-statement",
+            element: <IncomeStatement />,
+          },
+          {
+            path: "balance-sheet",
+            element: <BalanceSheet />,
+          },
+          {
+            path: "cash-flow",
+            element: <CashFlowStatement />,
+          },
+        ],
       },
     ],
   },

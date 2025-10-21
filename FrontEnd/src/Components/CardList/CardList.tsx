@@ -1,6 +1,6 @@
 import React, { type JSX } from "react";
 import Card from "../Card/Card";
-import type { CompanySearch } from "../../company";
+import type { CompanySearch } from "../../alphacompany.d.ts";
 import { v4 as uuidv4 } from "uuid";
 
 interface Props {
