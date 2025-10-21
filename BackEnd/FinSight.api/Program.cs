@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(connectionString));
 
 
-builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
+//builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
 var app = builder.Build();
 
 // Apply migrations on startup
