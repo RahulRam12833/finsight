@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinSight.api.Data;
+using FinSight.api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinSight.api.Controllers
@@ -20,7 +21,8 @@ namespace FinSight.api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stocks = _context.Stock.ToList();
+            var stocks = _context.Stock.ToList()
+            .Select(s => s.ToStockDto());
             return Ok(stocks);
         }
 
@@ -32,7 +34,7 @@ namespace FinSight.api.Controllers
             {
                 return NotFound();
             }
-            return Ok(stock);
+            return Ok(stock.ToStockDto());
         }
     }
 }
