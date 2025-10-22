@@ -15,11 +15,10 @@ namespace FinSight.api.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
         private readonly IStockRepository _stockRepository;
-        public StockController(ApplicationDBContext context, IStockRepository stockRepository)
+        public StockController(IStockRepository stockRepository)
         {
-            _context = context;
+
             _stockRepository = stockRepository;
         }
 
@@ -28,7 +27,7 @@ namespace FinSight.api.Controllers
         {
             var stocks = await _stockRepository.GetAllAsync();
             var stockDto = stocks.Select(s => s.ToStockDto());
-            return Ok(stocks);
+            return Ok(stockDto);
         }
 
         [HttpGet("{id}")]
