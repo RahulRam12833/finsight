@@ -23,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 
 //builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 var app = builder.Build();
 
 // Apply migrations on startup
