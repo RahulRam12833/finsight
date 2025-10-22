@@ -20,5 +20,10 @@ namespace FinSight.api.Repository
         {
             return await _options.Comments.ToListAsync();
         }
+
+        public async Task<Comment?> GetByIdAsync(int id)
+        {
+            return await _options.Comments.FindAsync(id);
+        }
     }
 }

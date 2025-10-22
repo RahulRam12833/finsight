@@ -18,7 +18,8 @@ namespace FinSight.api.Mappers
                 Name = stockModel.Name,
                 Industry = stockModel.Industry,
                 MarketCapitalization = stockModel.MarketCapitalization,
-                DividendYield = stockModel.DividendYield
+                DividendYield = stockModel.DividendYield,
+                Comments = stockModel.Comments.Select(c => c.ToCommentDto()).ToList()
             };
         }
 

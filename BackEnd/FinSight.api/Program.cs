@@ -2,16 +2,25 @@ using FinSight.api.Data;
 using FinSight.api.Interfaces;
 using FinSight.api.Repository;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
+
+builder.Services.AddEndpointsApiExplorer();
 //var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //var saPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
 
