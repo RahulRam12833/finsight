@@ -16,6 +16,26 @@ namespace FinSight.api.Repository
         {
             _options = options;
         }
+
+        public async Task<Comment> CreateAsync(Comment commentModel)
+        {
+            await _options.Comments.AddAsync(commentModel);
+            await _options.SaveChangesAsync();
+            return commentModel;
+        }
+
+        public async Task<Comment?> Delete(int id)
+        {
+            var commentModel = await _options.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            if (commentModel == null)
+            {
+                return null;
+            }
+            _options.Comments.Remove(commentModel);
+            await _options.SaveChangesAsync();
+            return commentModel;
+        }
+
         public async Task<List<Comment>> GetAllAsync()
         {
             return await _options.Comments.ToListAsync();
