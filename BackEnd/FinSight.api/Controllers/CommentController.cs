@@ -67,5 +67,19 @@ namespace FinSight.api.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto updateDto)
+        {
+            var comment = await _commentRepository.UpdateAsync(id, updateDto);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(comment.ToCommentDto());
+        }
+
     }
 }
