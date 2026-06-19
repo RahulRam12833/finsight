@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinSight.api.Data;
 using FinSight.api.DTOs.Stock;
+using FinSight.api.Helpers;
 using FinSight.api.Interfaces;
 using FinSight.api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,12 @@ namespace FinSight.api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var stocks = await _stockRepository.GetAllAsync();
+            var stocks = await _stockRepository.GetAllAsync(query);
             var stockDto = stocks.Select(s => s.ToStockDto());
             return Ok(stockDto);
         }
