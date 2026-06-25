@@ -2,16 +2,25 @@ using FinSight.api.Data;
 using FinSight.api.Interfaces;
 using FinSight.api.Repository;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
+
+builder.Services.AddEndpointsApiExplorer();
 //var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //var saPassword = Environment.GetEnvironmentVariable("SA_PASSWORD");
 
@@ -24,6 +33,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 //builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 var app = builder.Build();
 
 // Apply migrations on startup
