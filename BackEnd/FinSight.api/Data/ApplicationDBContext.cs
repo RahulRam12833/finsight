@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using FinSight.api.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FinSight.api.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<AppUser>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
             : base(options)
