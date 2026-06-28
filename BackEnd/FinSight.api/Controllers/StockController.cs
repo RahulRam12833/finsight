@@ -7,6 +7,7 @@ using FinSight.api.DTOs.Stock;
 using FinSight.api.Helpers;
 using FinSight.api.Interfaces;
 using FinSight.api.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ namespace FinSight.api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
