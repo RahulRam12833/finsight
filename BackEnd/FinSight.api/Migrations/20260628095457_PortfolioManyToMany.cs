@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace FinSight.api.Migrations
 {
     /// <inheritdoc />
-    public partial class Identity : Migration
+    public partial class PortfolioManyToMany : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +50,38 @@ namespace FinSight.api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlaceholderStocks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Purchase = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlaceholderStocks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stock",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Industry = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MarketCapitalization = table.Column<long>(type: "bigint", nullable: false),
+                    DividendYield = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stock", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +190,60 @@ namespace FinSight.api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StockId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Stock_StockId",
+                        column: x => x.StockId,
+                        principalTable: "Stock",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Portfolios",
+                columns: table => new
+                {
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StockId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Portfolios", x => new { x.AppUserId, x.StockId });
+                    table.ForeignKey(
+                        name: "FK_Portfolios_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Portfolios_Stock_StockId",
+                        column: x => x.StockId,
+                        principalTable: "Stock",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "917bd098-dbfb-41d2-90b8-5fd6873231ff", null, "User", "USER" },
+                    { "d7f3755f-f808-487e-bec2-2667fb2a5e67", null, "Admin", "ADMIN" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +282,16 @@ namespace FinSight.api.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_StockId",
+                table: "Comments",
+                column: "StockId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Portfolios_StockId",
+                table: "Portfolios",
+                column: "StockId");
         }
 
         /// <inheritdoc />
@@ -215,10 +313,22 @@ namespace FinSight.api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "PlaceholderStocks");
+
+            migrationBuilder.DropTable(
+                name: "Portfolios");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Stock");
         }
     }
 }

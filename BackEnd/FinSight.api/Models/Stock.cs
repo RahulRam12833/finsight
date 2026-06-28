@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinSight.api.Models
 {
+    [Table("Stock")]
     public class Stock
     {
         public int Id { get; set; }
@@ -17,5 +18,7 @@ namespace FinSight.api.Models
         public decimal DividendYield { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public List<Portfolio> Portfolios { get; set; } = new List<Portfolio>();
+
     }
 }
