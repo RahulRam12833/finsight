@@ -2,6 +2,7 @@ using FinSight.api.Data;
 using FinSight.api.Interfaces;
 using FinSight.api.Models;
 using FinSight.api.Repository;
+using FinSight.api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,7 @@ builder.Services.AddAuthentication(options =>
 //builder.Services.AddScoped<IPlaceholderStockRepository, PlaceholderStockRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 
 // Apply migrations on startup
