@@ -34,5 +34,17 @@ namespace FinSight.api.Mappers
                 DividendYield = stockDto.DividendYield
             };
         }
+
+        public static Stock ToStockFromAlphaVantage(this AlphaVantageStock alphaVantageStock)
+        {
+            return new Stock
+            {
+                Symbol = alphaVantageStock.Symbol,
+                Name = alphaVantageStock.Name,
+                Industry = alphaVantageStock.Industry,
+                MarketCapitalization = (long)alphaVantageStock.MarketCapitalization,
+                DividendYield = alphaVantageStock.DividendYield
+            };
+        }
     }
 }

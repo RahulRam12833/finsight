@@ -104,6 +104,9 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+builder.Services.AddScoped<IAlphaVantageService, AlphaVantageService>();
+builder.Services.AddHttpClient<IAlphaVantageService, AlphaVantageService>();
+
 var app = builder.Build();
 
 // Apply migrations on startup
