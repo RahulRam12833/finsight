@@ -7,6 +7,8 @@ using FinSight.api.Mappers;
 using FinSight.api.DTOs.Comment;
 using Microsoft.AspNetCore.Mvc;
 using FinSight.api.Models;
+using Microsoft.AspNetCore.Identity;
+using FinSight.api.Extensions;
 
 namespace FinSight.api.Controllers
 {
@@ -16,10 +18,12 @@ namespace FinSight.api.Controllers
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IStockRepository _stockRepository;
-        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
+        private readonly UserManager<AppUser> _userManager;
+        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository, UserManager<AppUser> UserManager)
         {
             _commentRepository = commentRepository;
             _stockRepository = stockRepository;
+            _userManager = UserManager;
         }
 
         [HttpGet]
@@ -58,8 +62,11 @@ namespace FinSight.api.Controllers
             {
                 return BadRequest("Stock does not exist");
             }
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
 
             var commentModel = commentDto.ToCommentFromCreateDto(stockId);
+            commentModel.AppUserId = appUser.Id;
             await _commentRepository.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }

@@ -41,7 +41,7 @@ namespace FinSight.api.Repository
 
         public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            var stock = _context.Stock.Include(c => c.Comments).AsQueryable();
+            var stock = _context.Stock.Include(c => c.Comments).ThenInclude(u => u.AppUser).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(query.Name))
             {
@@ -68,7 +68,7 @@ namespace FinSight.api.Repository
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
-            return await _context.Stock.Include(c => c.Comments).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Stock.Include(c => c.Comments).ThenInclude(u => u.AppUser).FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public async Task<Stock?> GetBySymbolAsync(string symbol)

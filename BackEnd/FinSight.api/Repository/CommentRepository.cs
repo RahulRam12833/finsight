@@ -39,12 +39,12 @@ namespace FinSight.api.Repository
 
         public async Task<List<Comment>> GetAllAsync()
         {
-            return await _options.Comments.ToListAsync();
+            return await _options.Comments.Include(u => u.AppUser).ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
         {
-            return await _options.Comments.FindAsync(id);
+            return await _options.Comments.Include(u => u.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Comment?> UpdateAsync(int id, UpdateCommentRequestDto updateCommentDto)
