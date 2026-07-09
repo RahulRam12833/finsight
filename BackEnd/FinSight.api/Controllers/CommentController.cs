@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using FinSight.api.Models;
 using Microsoft.AspNetCore.Identity;
 using FinSight.api.Extensions;
+using FinSight.api.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinSight.api.Controllers
 {
@@ -29,12 +31,13 @@ namespace FinSight.api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var comments = await _commentRepository.GetAllAsync();
+            var comments = await _commentRepository.GetAllAsync(queryObject);
             var commentDto = comments.Select(c => c.ToCommentDto());
             return Ok(commentDto);
         }
