@@ -1,7 +1,9 @@
 import { useState, useEffect, type SyntheticEvent } from "react";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 // type Stock = {
 //   id: number;
@@ -37,6 +39,7 @@ function App() {
     <>
       <Navbar />
       <Outlet />
+      <ToastContainer />
     </>
   );
 }
