@@ -44,8 +44,8 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="lg:hidden mt-4 flex flex-col space-y-4">
-          <Link to="/dashboard" className="text-black hover:text-blue-800">
-            Dashboard
+          <Link to="/search" className="text-black hover:text-blue-800">
+            Search
           </Link>
           <Link to="/login" className="hover:text-blue-800">
             Login
