@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Context/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { isLoggedIn, user, logout } = useAuth();
   return (
     <nav className="relative container mx-auto p-6">
       <div className="flex items-center justify-between">
@@ -19,21 +20,37 @@ const Navbar = () => {
           <Link to="/search" className="text-black hover:text-blue-800">
             Search
           </Link>
-          <Link to="/login" className="hover:text-blue-800">
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
-          >
-            Signup
-          </Link>
+          {isLoggedIn() ? (
+            <div className="hidden lg:flex items-center space-x-6">
+              <div className="hover:text-blue-800">
+                Welcome, {user?.userName}
+              </div>
+              <button
+                onClick={logout}
+                className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center space-x-6">
+              <Link to="/login" className="hover:text-blue-800">
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
+              >
+                Signup
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden flex flex-col space-y-1"
+          className="lg:hidden flex flex-col  space-y-1"
         >
           <span className="w-6 h-0.5 bg-black"></span>
           <span className="w-6 h-0.5 bg-black"></span>
@@ -43,19 +60,35 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden mt-4 flex flex-col space-y-4">
+        <div className="lg:hidden mt-4 flex flex-col space-y-1">
           <Link to="/search" className="text-black hover:text-blue-800">
             Search
           </Link>
-          <Link to="/login" className="hover:text-blue-800">
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
-          >
-            Signup
-          </Link>
+          {isLoggedIn() ? (
+            <div className="lg:hidden mt-4 flex flex-col space-y-1">
+              <div className="hover:text-blue-800">
+                Welcome, {user?.userName}
+              </div>
+              <button
+                onClick={logout}
+                className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="lg:hidden mt-4 flex flex-col space-y-1">
+              <Link to="/login" className="hover:text-blue-800">
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
+              >
+                Signup
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </nav>
