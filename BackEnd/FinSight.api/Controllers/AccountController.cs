@@ -89,7 +89,10 @@ namespace FinSight.api.Controllers
                 }
                 else
                 {
-                    return StatusCode(500, createdUser.Errors);
+                    return BadRequest(new
+                    {
+                        errors = createdUser.Errors
+                    });
                 }
             }
             catch (Exception e)
