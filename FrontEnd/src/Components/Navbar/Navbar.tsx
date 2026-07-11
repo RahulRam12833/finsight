@@ -23,7 +23,7 @@ const Navbar = () => {
             Login
           </Link>
           <Link
-            to="/signup"
+            to="/register"
             className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
           >
             Signup
@@ -51,7 +51,7 @@ const Navbar = () => {
             Login
           </Link>
           <Link
-            to="/signup"
+            to="/register"
             className="px-6 py-2 font-bold rounded text-white bg-green-400 hover:opacity-70"
           >
             Signup
