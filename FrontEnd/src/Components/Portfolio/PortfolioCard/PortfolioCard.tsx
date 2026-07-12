@@ -1,9 +1,10 @@
 import React from "react";
 import DeletePortfolio from "../DeletePortfolio/DeletePortfolio";
 import { Link } from "react-router-dom";
+import type { PortfolioGet } from "../../../Models/Portfolio";
 
 interface Props {
-  portfolioItem: string;
+  portfolioItem: PortfolioGet;
   onPortfolioDelete: (e: any) => void;
 }
 
@@ -15,10 +16,10 @@ const PortfolioCard = ({ portfolioItem, onPortfolioDelete }: Props) => {
           to={`/company/${portfolioItem}`}
           className="pt-6 text-xl font-bold"
         >
-          {portfolioItem}
+          {portfolioItem.symbol}
         </Link>
         <DeletePortfolio
-          portfolioItem={portfolioItem}
+          portfolioItem={portfolioItem.symbol}
           onPortfolioDelete={onPortfolioDelete}
         />
       </div>
