@@ -8,6 +8,7 @@ import {
   formatLargeNonMonetaryNumber,
   formatRatio,
 } from "../../Helpers/NumberFormatting";
+import StockComment from "../StockComment/StockComment";
 
 type Props = {};
 const tableConfig = [
@@ -140,7 +141,10 @@ const CompanyProfile = (props: Props) => {
   return (
     <>
       {companyData ? (
-        <RatioList config={tableConfig} data={companyData} />
+        <div className="flex flex-col">
+          <RatioList config={tableConfig} data={companyData} />
+          <StockComment stockSymbol={"hhh"} />
+        </div>
       ) : (
         <Spinner />
       )}
