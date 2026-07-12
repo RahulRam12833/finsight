@@ -8,6 +8,7 @@ import {
   formatLargeNonMonetaryNumber,
   formatRatio,
 } from "../../Helpers/NumberFormatting";
+import StockComment from "../StockComment/StockComment";
 
 type Props = {};
 const tableConfig = [
@@ -136,11 +137,14 @@ const tableConfig = [
 
 const CompanyProfile = (props: Props) => {
   const companyData = useOutletContext<CompanyProfileType>();
-  console.log("Company Data in Profile:", companyData);
+  console.log("Company Data in Profile:", companyData); //Make sure to sent stocksymbol for comments
   return (
     <>
       {companyData ? (
-        <RatioList config={tableConfig} data={companyData} />
+        <div className="flex flex-col">
+          <RatioList config={tableConfig} data={companyData} />
+          <StockComment stockSymbol={"IBM"} />
+        </div>
       ) : (
         <Spinner />
       )}
