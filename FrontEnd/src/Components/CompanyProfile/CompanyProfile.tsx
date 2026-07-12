@@ -137,13 +137,13 @@ const tableConfig = [
 
 const CompanyProfile = (props: Props) => {
   const companyData = useOutletContext<CompanyProfileType>();
-  console.log("Company Data in Profile:", companyData);
+  console.log("Company Data in Profile:", companyData); //Make sure to sent stocksymbol for comments
   return (
     <>
       {companyData ? (
         <div className="flex flex-col">
           <RatioList config={tableConfig} data={companyData} />
-          <StockComment stockSymbol={"hhh"} />
+          <StockComment stockSymbol={"IBM"} />
         </div>
       ) : (
         <Spinner />
