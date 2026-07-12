@@ -1,4 +1,3 @@
-import React from "react";
 import PortfolioCard from "../PortfolioCard/PortfolioCard";
 import type { PortfolioGet } from "../../../Models/Portfolio";
 

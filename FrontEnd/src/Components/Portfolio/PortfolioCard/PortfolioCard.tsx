@@ -1,4 +1,3 @@
-import React from "react";
 import DeletePortfolio from "../DeletePortfolio/DeletePortfolio";
 import { Link } from "react-router-dom";
 import type { PortfolioGet } from "../../../Models/Portfolio";

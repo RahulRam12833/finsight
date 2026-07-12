@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 //import type { CompanyProfile } from "../../company";
 import type { CompanyProfileType } from "../../alphacompany.d.ts";
 import { getCompanyProfile } from "../../api";
@@ -6,12 +6,10 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 import { mockCompanyProfile } from "../../mockCompanyProfile.ts";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Spinner from "../../Components/Spinner/Spinner.tsx";
 
-interface Props {}
-
-const CompanyPage = (props: Props) => {
+const CompanyPage = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const [company, setCompany] = useState<CompanyProfileType>();
   const [error, setError] = useState<string | null>(null);

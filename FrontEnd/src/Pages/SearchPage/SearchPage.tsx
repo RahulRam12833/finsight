@@ -1,7 +1,6 @@
 import React, { useEffect, useState, type SyntheticEvent } from "react";
 import type { CompanySearch } from "../../alphacompany.d.ts";
 import { searchCompanies } from "../../api";
-import Navbar from "../../Components/Navbar/Navbar";
 import Search from "../../Components/Search/Search";
 import PortfolioList from "../../Components/Portfolio/PortfolioList/PortfolioList";
 import CardList from "../../Components/CardList/CardList";
@@ -13,9 +12,7 @@ import {
 } from "../../Services/PortfolioService.tsx";
 import { toast } from "react-toastify";
 
-interface Props {}
-
-const SearchPage = (props: Props) => {
+const SearchPage = () => {
   const [search, setSearch] = useState<string>("");
   const [searchResults, setSearchResults] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
