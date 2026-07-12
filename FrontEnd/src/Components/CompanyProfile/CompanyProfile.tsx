@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from "react";
 import type { CompanyProfileType } from "../../alphacompany";
 import { useOutletContext } from "react-router-dom";
 import RatioList from "../RatioList/RatioList";
 import Spinner from "../Spinner/Spinner";
 import {
   formatLargeMonetaryNumber,
-  formatLargeNonMonetaryNumber,
   formatRatio,
 } from "../../Helpers/NumberFormatting";
 import StockComment from "../StockComment/StockComment";
 
-type Props = {};
 const tableConfig = [
   {
     label: "Market Cap",
@@ -135,7 +132,7 @@ const tableConfig = [
   },
 ];
 
-const CompanyProfile = (props: Props) => {
+const CompanyProfile = () => {
   const companyData = useOutletContext<CompanyProfileType>();
   console.log("Company Data in Profile:", companyData); //Make sure to sent stocksymbol for comments
   return (

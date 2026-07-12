@@ -1,4 +1,3 @@
-import { useState, useEffect, type SyntheticEvent } from "react";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Navbar/Navbar";

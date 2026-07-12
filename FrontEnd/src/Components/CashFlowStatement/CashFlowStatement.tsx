@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Table from "../Table/Table";
 //import Spinner from "../Spinners/Spinner";
@@ -8,8 +8,6 @@ import { getCashFlowStatement } from "../../api";
 import mockCashFlow from "../../mockCashFlow";
 import Spinner from "../Spinner/Spinner";
 import { safeFormatNumber } from "../../Helpers/NumberFormatting";
-
-type Props = {};
 
 export const cashFlowConfig = [
   {
@@ -52,10 +50,10 @@ export const cashFlowConfig = [
   },
 ];
 
-const CashflowStatement = (props: Props) => {
+const CashflowStatement = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const [cashFlowData, setCashFlowData] = useState<CashFlowType>();
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!symbol) return;
@@ -82,7 +80,7 @@ const CashflowStatement = (props: Props) => {
       } catch (error) {
         console.error("Error fetching cash flow data:", error);
         setCashFlowData(mockCashFlow);
-        setError("Failed to fetch data, using mock data.");
+        //setError("Failed to fetch data, using mock data.");
       }
     };
 
