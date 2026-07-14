@@ -1,12 +1,12 @@
-import axios from "axios";
 import { handleError } from "../Helpers/ErrorHandler";
 import type { UserProfileToken } from "../Models/User";
+import backendApi from "./backendapi";
 
-const api = "https://localhost:7206/api/";
+//const api = "https://localhost:7206/api/";
 
 export const loginAPI = async (username: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "Account/login", {
+    const data = await backendApi.post<UserProfileToken>("/api/Account/login", {
       username: username,
       password: password,
     });
@@ -22,11 +22,14 @@ export const registerAPI = async (
   password: string,
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "Account/register", {
-      email,
-      username,
-      password,
-    });
+    const data = await backendApi.post<UserProfileToken>(
+      "/api/Account/register",
+      {
+        email,
+        username,
+        password,
+      },
+    );
     return data;
   } catch (err) {
     handleError(err);
