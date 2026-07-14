@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { IncomeReport, IncomeStatementType } from "../../alphacompany";
-import RatioList from "../RatioList/RatioList";
+//import RatioList from "../RatioList/RatioList";
 import { getIncomeStatement } from "../../api";
 import { useParams } from "react-router-dom";
 import { mockIncomeData } from "../../mockIncomeData";
 import Table from "../Table/Table";
 import Spinner from "../Spinner/Spinner";
 import { safeFormatNumber } from "../../Helpers/NumberFormatting";
-type Props = {};
+//type Props = {};
 
 export const incomeTableConfig = [
   {
@@ -50,13 +50,13 @@ export const incomeTableConfig = [
   },
 ];
 
-const IncomeStatement = (props: Props) => {
+const IncomeStatement = () => {
   //fetch income statement data from context
 
   const { symbol } = useParams<{ symbol: string }>();
   const [incomeData, setIncomeData] =
     useState<IncomeStatementType>(mockIncomeData);
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!symbol) return;
@@ -79,7 +79,7 @@ const IncomeStatement = (props: Props) => {
       } catch (error) {
         console.error("Error fetching income statement data:", error);
         setIncomeData(mockIncomeData);
-        setError("Failed to fetch data, using mock data.");
+        //setError("Failed to fetch data, using mock data.");
       }
     };
 
