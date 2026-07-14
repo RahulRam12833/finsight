@@ -194,9 +194,6 @@ FinSight
 
 During development, I worked through several real-world engineering challenges:
 
-- Designing communication between React and .NET API
-- Implementing authentication and protected routes
-- Managing database migrations with Entity Framework Core
 - Containerizing a multi-service application
 - Creating a complete CI/CD deployment workflow
 - Deploying full-stack applications to Azure
