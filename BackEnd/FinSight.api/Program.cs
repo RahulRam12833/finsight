@@ -106,6 +106,19 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 builder.Services.AddScoped<IAlphaVantageService, AlphaVantageService>();
 builder.Services.AddHttpClient<IAlphaVantageService, AlphaVantageService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontEnd", policy =>
+    {
+        policy.WithOrigins(
+            "https://finsight-frontend.icydune-9ce779a9.australiaeast.azurecontainerapps.io",
+            "https:localhost:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -132,16 +145,7 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors(policy =>
-{
-    policy.AllowAnyMethod()
-          .AllowAnyHeader()
-          .AllowCredentials()
-          //.WithOrigins("https://localhost:5173")
-          .SetIsOriginAllowed(origin => true); // Allows all origins for development purposes
-                                               //change to frontend only for production
-
-});
+app.UseCors("FrontEnd");
 
 app.UseAuthentication();
 app.UseAuthorization();
