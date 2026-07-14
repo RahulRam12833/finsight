@@ -21,7 +21,7 @@ export const searchCompanies = async (keywords: string) => {
           keywords,
           apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
-      }
+      },
     );
     const matches = response.data.bestMatches;
     console.log(response.data);
@@ -57,9 +57,9 @@ export const getCompanyProfile = async (symbol: string) => {
         params: {
           symbol, // symbol=AAPL
           function: "OVERVIEW",
-          apikey: import.meta.env.VITE_FIN_API_KEY,
+          apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
-      }
+      },
     );
 
     const data = response.data;
@@ -109,9 +109,9 @@ export const getIncomeStatement = async (symbol: string) => {
         params: {
           symbol, // symbol=AAPL
           function: "INCOME_STATEMENT",
-          apikey: import.meta.env.VITE_FIN_API_KEY,
+          apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
-      }
+      },
     );
 
     const data = response.data;
@@ -152,9 +152,9 @@ export const getBalanceSheet = async (symbol: string) => {
         params: {
           symbol, // symbol=AAPL
           function: "BALANCE_SHEET",
-          apikey: import.meta.env.VITE_FIN_API_KEY,
+          apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
-      }
+      },
     );
 
     const data = response.data;
@@ -202,9 +202,9 @@ export const getCashFlowStatement = async (symbol: string) => {
         params: {
           symbol, // symbol=AAPL
           function: "CASH_FLOW",
-          apikey: import.meta.env.VITE_FIN_API_KEY,
+          apikey: import.meta.env.VITE_ALPHA_API_KEY,
         },
-      }
+      },
     );
 
     const data = response.data;

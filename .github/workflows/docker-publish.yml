@@ -30,5 +30,10 @@ jobs:
 
       - name: Build and publish frontend Docker image
         run: |
-          docker build --build-arg VITE_API_BASE_URL=${{secrets.VITE_API_BASE_URL}} -t ghcr.io/rahulram12833/finsight-frontend:latest -f FrontEnd/Dockerfile ./FrontEnd
+          docker build \
+          --build-arg VITE_API_BASE_URL=${{secrets.VITE_API_BASE_URL}} \
+          --build-arg VITE_ALPHA_API_KEY=${{secrets.VITE_ALPHA_API_KEY}} \
+          -t ghcr.io/rahulram12833/finsight-frontend:latest \
+          -f FrontEnd/Dockerfile \
+          ./FrontEnd
           docker push ghcr.io/rahulram12833/finsight-frontend:latest

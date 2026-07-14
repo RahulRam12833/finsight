@@ -112,7 +112,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
             "https://finsight-frontend.icydune-9ce779a9.australiaeast.azurecontainerapps.io",
-            "https:localhost:5173"
+            "http://localhost:5173"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
