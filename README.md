@@ -1,78 +1,221 @@
-# FinSight — React + .NET Full-Stack Finance Tracker
+# FinSight - Full Stack Financial Portfolio Tracker
 
-## Project Overview
 
-FinSight is a full-stack finance tracking application built with a React frontend and a .NET backend. The goal is to learn and demonstrate practical skills in modern web development, including API design, frontend-backend integration, and deployment readiness.
+## Overview
+
+**FinSight** is a full-stack financial portfolio tracking application built with **React, TypeScript, .NET 8 Web API, and SQL Server**.
+
+The project was created to demonstrate modern full-stack development practices, including:
+
+- REST API development
+- Frontend and backend integration
+- Database design with Entity Framework Core
+- Containerized development with Docker
+- CI/CD automation using GitHub Actions
+- Cloud deployment using Azure
+
+Users can manage their investment portfolio, search financial data, and interact with a responsive web application built using modern technologies.
+
+---
+
+## Live Demo
+
+🌐 **Frontend:**  
+https://finsight-frontend.icydune-9ce779a9.australiaeast.azurecontainerapps.io/
+
 
 ---
 
-## Current Progress
+# Features
 
-**Backend:**  
-- Developed RESTful APIs for managing stock and finance data using .NET 8 Web API with **Entity Framework Core** and **Microsoft SQL Server**.  
-- Implemented data seeding with placeholder stock data.  
-- API endpoints tested successfully via **Swagger and Postman**.  
-- Configured a **temporary permissive CORS policy** to enable smooth frontend integration during development.  
-  > *Note: This CORS setup allows all origins and will be tightened before production.*
+## Authentication
 
-**Frontend:**  
-- Built a minimal React application (using Vite) that fetches and displays data from the backend API.  
-- Implemented API calls using `fetch` to demonstrate frontend-backend communication.  
-- Encountered and resolved CORS issues during integration, currently using the temporary backend CORS fix.
+- User registration and login
+- Secure authentication using ASP.NET Core Identity
+- Protected API endpoints
+- User-specific portfolio data
+
+## Portfolio Management
+
+- Create, view, update, and delete portfolio items
+- Track owned assets
+- Manage investment information through RESTful APIs
+
+## Financial Data Integration
+
+- Integration with external financial APIs
+- Stock search functionality
+- Financial information retrieval
+- Fallback mock data handling when API limits are reached
+
+## Responsive Frontend
+
+- Modern React interface
+- Mobile and desktop responsive design
+- Interactive components and animations
+- Form validation and error handling
 
 ---
+
+# Tech Stack
+
+## Frontend
+
+- **React**
+- **TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **Redux Toolkit**
+- **React Router**
+- **React Hook Form**
+- **Axios**
+
+## Backend
+
+- **.NET 8 Web API**
+- **C#**
+- **Entity Framework Core**
+- **ASP.NET Core Identity**
+- **RESTful API Architecture**
 
 ## Database
 
-- Using **Microsoft SQL Server** as the backend database for reliable and scalable data storage.  
-- Integrated with the .NET backend via **Entity Framework Core** for efficient ORM and migration management.  
-- Stores finance-related data including stocks, transactions, and user information.  
-- Database connection configured through appsettings and supports local development and deployment environments.  
-- Initial data seeded with placeholder stock records for testing and frontend integration.
+- **SQL Server**
+- **Entity Framework Core Migrations**
 
----
-## Docker
+## DevOps & Deployment
 
-This project uses Docker to containerize the backend and frontend applications for consistent development and deployment environments.
-
-### Backend
-
-- The backend API is containerized with a multi-stage Dockerfile located at `BackEnd/FinSight.api/Dockerfile`.
-- To build the backend Docker image:
-
-  ```bash
-  docker build -t finsight-api -f BackEnd/FinSight.api/Dockerfile .
-- To run the backend container locally, exposing port 8080:
-  ```bash
-  docker run -p 8080:8080 finsight-api
-- The API listens on http://localhost:8080 inside the container. HTTPS is disabled inside Docker for simplicity.
-
-### Frontend(yet to be containerized)
----
-
-## Technical Highlights
-
-- Monorepo structure with separate backend and frontend folders for clean project organization.  
-- CORS configured temporarily to allow all origins during local development; planned to tighten before production.  
-- Use of Git branches and pull requests to manage backend and frontend development independently and integrate changes systematically.  
-- Ready for next phases: Docker containerization, CI/CD pipelines, and deployment.
+- **Docker**
+- **Docker Compose**
+- **GitHub Actions**
+- **GitHub Container Registry**
+- **Azure Container Apps**
 
 ---
 
-## Next Steps
+# Application Architecture
 
-- Refine CORS policy for production with environment-specific origins.  
-- Enhance frontend UI and state management.  
-- Containerize the application using Docker.  (
-- Set up CI/CD workflows via GitHub Actions for automated testing and deployment.  
-- Deploy to cloud platform (Azure, AWS, or similar).
+```
+React Frontend
+      |
+      | HTTP Requests
+      |
+.NET 8 Web API
+      |
+      |
+Entity Framework Core
+      |
+      |
+SQL Server Database
+```
+
+The application is separated into independent frontend and backend services.
+
+Each service is containerized using Docker and deployed through a CI/CD pipeline.
 
 ---
 
-## How to Run Locally
+# Docker Setup
 
-### Backend
+The application includes Docker configuration for local development.
+
+Services:
+
+- React frontend container
+- .NET API container
+- SQL Server container
+
+Run the application:
 
 ```bash
-cd backend
-dotnet run
+docker compose up
+```
+
+The containers communicate through a Docker network and provide a consistent development environment.
+
+---
+
+# CI/CD Pipeline
+
+The project uses **GitHub Actions** to automate the deployment process.
+
+Pipeline workflow:
+
+```
+Code Push
+    |
+    ↓
+GitHub Actions Trigger
+    |
+    ↓
+Build Docker Images
+    |
+    ↓
+Push Images to GitHub Container Registry
+    |
+    ↓
+Deploy Containers to Azure
+```
+
+Benefits:
+
+- Automated builds
+- Consistent deployments
+- Reduced manual configuration
+- Container-based delivery
+
+---
+
+# Project Structure
+
+```
+FinSight
+│
+├── FrontEnd
+│   ├── React
+│   ├── TypeScript
+│   └── Tailwind CSS
+│
+├── FinSight.API
+│   ├── Controllers
+│   ├── Services
+│   ├── Models
+│   └── Data
+│
+├── docker-compose.yml
+│
+└── .github
+    └── workflows
+```
+
+---
+
+# Challenges & Learnings
+
+During development, I worked through several real-world engineering challenges:
+
+- Designing communication between React and .NET API
+- Implementing authentication and protected routes
+- Managing database migrations with Entity Framework Core
+- Containerizing a multi-service application
+- Creating a complete CI/CD deployment workflow
+- Deploying full-stack applications to Azure
+
+---
+
+# Future Improvements
+
+Potential future enhancements:
+
+- Real-time stock price updates
+- More advanced portfolio analytics
+- Additional financial charts
+- Improved API caching
+- Automated testing coverage
+
+---
+
+# Author
+
+**Rahul Ram**
+
