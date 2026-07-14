@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../Services/AuthService";
 import { toast } from "react-toastify";
 import React from "react";
-import axios from "axios";
 
 type UserContextType = {
   user: UserProfile | null;
@@ -31,7 +30,7 @@ export const UserProvider = ({ children }: Props) => {
     if (user && token) {
       setUser(JSON.parse(user));
       setToken(token);
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      //axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
     setIsReady(true);
   }, []);
@@ -53,8 +52,8 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
           toast.success("Registration Successful!!!");
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res?.data.token;
+          // axios.defaults.headers.common["Authorization"] =
+          //   "Bearer " + res?.data.token;
           navigate("/search");
         }
       })
@@ -74,8 +73,8 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setUser(userObj!);
           toast.success("Login Success!!!");
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res?.data.token;
+          //  axios.defaults.headers.common["Authorization"] =
+          //    "Bearer " + res?.data.token;
           navigate("/search");
         }
       })
@@ -91,7 +90,7 @@ export const UserProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken(null);
-    delete axios.defaults.headers.common["Authorization"];
+    // delete axios.defaults.headers.common["Authorization"];
     navigate("/");
   };
 
