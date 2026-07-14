@@ -120,11 +120,15 @@ using (var scope = app.Services.CreateScope())
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -135,6 +139,7 @@ app.UseCors(policy =>
           .AllowCredentials()
           //.WithOrigins("https://localhost:5173")
           .SetIsOriginAllowed(origin => true); // Allows all origins for development purposes
+                                               //change to frontend only for production
 
 });
 
