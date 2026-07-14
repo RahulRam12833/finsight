@@ -1,9 +1,6 @@
-import React from "react";
 import Table from "../../Components/Table/Table";
 import RatioList from "../../Components/RatioList/RatioList";
 import { testIncomeStatementData } from "../../Components/Table/testData";
-
-type Props = {};
 
 const tableConfig = [
   {
@@ -12,7 +9,7 @@ const tableConfig = [
     subTitle: "Total value of all a company's shares of stock",
   },
 ];
-const DesignPage = (props: Props) => {
+const DesignPage = () => {
   return (
     <>
       <h1>FinSight Design Page</h1>

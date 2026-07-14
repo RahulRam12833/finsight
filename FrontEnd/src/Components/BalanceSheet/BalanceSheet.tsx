@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { BalanceReport, BalanceSheetType } from "../../alphacompany";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import mockBalanceSheet from "../../mockBalanceSheet";
 import Spinner from "../Spinner/Spinner";
-import {
-  formatLargeMonetaryNumber,
-  safeFormatNumber,
-} from "../../Helpers/NumberFormatting";
-
-type Props = {};
+import { safeFormatNumber } from "../../Helpers/NumberFormatting";
 
 export const config = [
   {
@@ -71,11 +66,11 @@ export const config = [
   },
 ];
 
-const BalanceSheet = (props: Props) => {
+const BalanceSheet = () => {
   const { symbol } = useParams<{ symbol: string }>();
   const [balanceData, setBalanceData] =
     useState<BalanceSheetType>(mockBalanceSheet);
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!symbol) return;

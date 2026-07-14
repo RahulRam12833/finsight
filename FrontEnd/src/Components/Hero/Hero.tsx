@@ -1,11 +1,10 @@
-import React from "react";
 import hero from "./hero.png";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 
-interface Props {}
+//interface Props {}
 
-const Hero = (props: Props) => {
+const Hero = () => {
   return (
     <section id="hero">
       <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">
