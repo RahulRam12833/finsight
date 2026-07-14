@@ -12,8 +12,8 @@ namespace FinSight.api.DTOs.Stock
         public string Symbol { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Industry { get; set; } = string.Empty;
-        public long MarketCapitalization { get; set; }
-        public decimal DividendYield { get; set; }
+        public long? MarketCapitalization { get; set; }
+        public decimal? DividendYield { get; set; }
 
         public List<CommentDto> Comments { get; set; }
     }

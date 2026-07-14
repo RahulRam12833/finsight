@@ -1,3 +1,4 @@
+using FinSight.api.Converters;
 using FinSight.api.Data;
 using FinSight.api.Interfaces;
 using FinSight.api.Models;
@@ -106,6 +107,14 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 builder.Services.AddScoped<IAlphaVantageService, AlphaVantageService>();
 builder.Services.AddHttpClient<IAlphaVantageService, AlphaVantageService>();
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(
+            new NullableDecimalConverter()
+        );
+    });
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontEnd", policy =>
