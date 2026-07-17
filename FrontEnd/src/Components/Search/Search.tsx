@@ -19,9 +19,9 @@ const Search: React.FC<Props> = ({
           onSubmit={onSearchSubmit}
         >
           <input
-            className="flex-1 p-3 border-2 rounded-lg placeholder-black bg-white focus:outline-none"
+            className="flex-1 p-3 border-2 rounded-lg placeholder-gray-400 bg-white focus:outline-none"
             id="search-input"
-            placeholder="Search companies"
+            placeholder="Search by ticker(eg AAPL, MSFT, IBM) or name"
             value={search}
             onChange={handleSearchChange}
           ></input>
