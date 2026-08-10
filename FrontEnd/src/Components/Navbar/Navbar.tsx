@@ -37,7 +37,10 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="hidden lg:flex items-center space-x-6">
-              <Link to="/login" className="hover:text-blue-800">
+              <Link
+                to="/login"
+                className="font-semibold text-indigo-900 hover:text-blue-800"
+              >
                 Login
               </Link>
               <Link
