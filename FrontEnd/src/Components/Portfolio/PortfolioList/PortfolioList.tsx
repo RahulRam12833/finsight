@@ -8,28 +8,32 @@ interface Props {
 
 const PortfolioList = ({ portfolioData, onPortfolioDelete }: Props) => {
   return (
-    <section id="portfolio">
-      <h2 className="mb-3 mt-3 text-3xl font-semibold text-indigo-950 text-center md:text-4xl">
+    <section id="portfolio" className="px-6 py-10">
+      <h2 className="mb-8 text-center text-3xl font-semibold text-indigo-950 md:text-4xl">
         My Portfolio
       </h2>
-      <div className="relative flex flex-col items-center  max-w-5xl mx-auto space-y-10 px-10 mb-5 md:px-6 md:space-y-0 md:space-x-7 md:flex-row">
-        <>
-          {portfolioData.length > 0 ? (
-            portfolioData.map((portfolioItem) => {
-              return (
-                <PortfolioCard
-                  portfolioItem={portfolioItem}
-                  onPortfolioDelete={onPortfolioDelete}
-                />
-              );
-            })
-          ) : (
-            <h3 className="mb-3 mt-3 text-xl font-semibold text-indigo-950 text-center md:text-xl">
-              Your portfolio is empty.
-            </h3>
-          )}
-        </>
-      </div>
+
+      {portfolioData.length > 0 ? (
+        <div className=" mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
+          {portfolioData.map((portfolioItem) => (
+            <PortfolioCard
+              key={portfolioItem.id}
+              portfolioItem={portfolioItem}
+              onPortfolioDelete={onPortfolioDelete}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="mx-auto max-w-md rounded-2xl border border-blue-100 bg-white/80 p-10 text-center shadow-sm">
+          <h3 className="text-xl font-semibold text-indigo-950">
+            Your portfolio is empty.
+          </h3>
+
+          <p className="mt-2 text-slate-500">
+            Search for a stock and add it to your portfolio.
+          </p>
+        </div>
+      )}
     </section>
   );
 };

@@ -19,13 +19,13 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center space-x-6">
           <Link
             to="/search"
-            className="font-semibold text-indigo-800 hover:text-blue-500"
+            className="font-semibold text-indigo-900 hover:text-blue-500"
           >
             Search
           </Link>
           {isLoggedIn() ? (
             <div className="hidden lg:flex items-center space-x-6">
-              <div className="font-semibold text-indigo-800 hover:text-blue-500">
+              <div className="font-semibold text-indigo-900 hover:text-blue-500">
                 Welcome, {user?.userName}
               </div>
               <button

@@ -7,12 +7,16 @@ interface Props {
 
 const AddPortfolio = ({ onPortfolioSubmit, symbol }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-end flex-1 space-x-4 space-y-2 md:flex-row md:space-y-0">
+    <div className="flex items-center">
       <form onSubmit={onPortfolioSubmit}>
         <input readOnly={true} hidden={true} value={symbol} />
         <button
           type="submit"
-          className="p-2 px-8 text-white bg-blue-800 rounded-lg hover:opacity-70 focus:outline-none"
+          className="rounded-lg bg-blue-800 px-6 py-2 text-sm font-semibold
+                     text-white shadow-sm transition-all
+                     hover:bg-blue-700 hover:shadow-md
+                     active:scale-95 focus:outline-none
+                     focus:ring-2 focus:ring-blue-800 focus:ring-offset-2"
         >
           Add
         </button>
