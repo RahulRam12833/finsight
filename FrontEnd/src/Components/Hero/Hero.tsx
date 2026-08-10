@@ -1,4 +1,3 @@
-import "./Hero.css";
 import { Link } from "react-router-dom";
 
 //interface Props {}
