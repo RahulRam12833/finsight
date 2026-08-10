@@ -21,8 +21,11 @@ namespace FinSight.api.Converters
 
             var value = reader.Value.ToString();
 
-            if (string.IsNullOrWhiteSpace(value) || value == "None")
+            if (string.IsNullOrWhiteSpace(value) ||
+                value.Equals("None", StringComparison.OrdinalIgnoreCase))
+            {
                 return null;
+            }
 
             if (decimal.TryParse(
                 value,

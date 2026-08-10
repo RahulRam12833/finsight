@@ -36,13 +36,30 @@ function App() {
   // }, []);
 
   return (
-    <>
-      <UserProvider>
-        <Navbar />
-        <Outlet />
-        <ToastContainer />
-      </UserProvider>
-    </>
+    <div className="app relative isolate min-h-screen bg-linear-to-br from-blue-100 via-white to-blue-100">
+      <svg
+        className="pointer-events-none absolute top-43 left-0  -z-10 h-64 w-full"
+        viewBox="0 0 1440 600"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <path
+          d=" M-50 500
+      C250 -100, 450 900, 700 400
+      C950 -100, 1150 900, 1490 100"
+          stroke="#3B82F6"
+          strokeWidth="3"
+          opacity="0.40"
+        />
+      </svg>
+      <div className="z-10">
+        <UserProvider>
+          <Navbar />
+          <Outlet />
+          <ToastContainer />
+        </UserProvider>
+      </div>
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinSight.api.DTOs.Stock;
 using FinSight.api.Models;
+using Microsoft.VisualBasic;
 
 namespace FinSight.api.Mappers
 {
@@ -42,8 +43,8 @@ namespace FinSight.api.Mappers
                 Symbol = alphaVantageStock.Symbol,
                 Name = alphaVantageStock.Name,
                 Industry = alphaVantageStock.Industry,
-                MarketCapitalization = (long)alphaVantageStock.MarketCapitalization,
-                DividendYield = alphaVantageStock.DividendYield
+                MarketCapitalization = (long)(alphaVantageStock.MarketCapitalization ?? 0m),
+                DividendYield = alphaVantageStock.DividendYield ?? 0m
             };
         }
     }
