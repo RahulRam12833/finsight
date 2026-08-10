@@ -1,4 +1,3 @@
-import hero from "./hero.png";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 
@@ -13,7 +12,7 @@ const Hero = () => {
             Financial data with no news.
           </h1>
 
-          <p className="max-w-2xl text-xl font-bold text-indigo-950">
+          <p className="max-w-2xl text-2xl font-bold text-indigo-950">
             Search relevant financial documents without fear mongering and fake
             news.
           </p>
