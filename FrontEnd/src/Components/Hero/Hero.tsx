@@ -1,4 +1,3 @@
-import hero from "./hero.png";
 import "./Hero.css";
 import { Link } from "react-router-dom";
 
