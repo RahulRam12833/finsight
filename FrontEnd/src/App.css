@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background: linear-gradient(
+    135deg,
+    #eff6ff 0%,
+    #f1f7ff 45%,
+    #f3f5ff 50%
+  );
+}
+bg-linear-to-br from-blue-200 via-white to-blue-200
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+

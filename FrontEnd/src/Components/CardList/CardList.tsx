@@ -13,7 +13,7 @@ const CardList: React.FC<Props> = ({
   onPortfolioSubmit,
 }: Props): JSX.Element => {
   return (
-    <>
+    <div className="space-y-4 p-4">
       {searchResults.length > 0 ? (
         searchResults.map((result) => {
           return (
@@ -26,11 +26,11 @@ const CardList: React.FC<Props> = ({
           );
         })
       ) : (
-        <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+        <p className="mb-3 mt-3 text-xl text-indigo-900 font-semibold text-center md:text-xl">
           No results!
         </p>
       )}
-    </>
+    </div>
   );
 };
 

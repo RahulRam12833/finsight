@@ -18,23 +18,29 @@ const Card: React.FC<Props> = ({
   return (
     <>
       <div
-        className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
+        className="flex w-full flex-col gap-3 rounded-lg bg-slate-100 p-4 shadow-sm
+               md:flex-row md:items-center md:justify-between md:gap-6"
         key={id}
         id={id}
       >
         <Link
           to={`/company/${searchResult.symbol}`}
-          className="font-bold text-center  md:text-left"
+          className="min-w-0 flex-1 truncate text-center font-bold text-slate-900
+                 transition-colors hover:text-blue-800 md:text-left"
         >
           {searchResult.name} ({searchResult.symbol})
         </Link>
-        <p className="text-blue-900">{searchResult.currency}</p>
-        <p className="font-bold ">{searchResult.name}</p>
+        <p className="text-center text-sm font-medium text-blue-900 md:w-24 md:text-left">
+          {searchResult.currency}
+        </p>
+        <p className="hidden text-sm font-semibold text-slate-700 md:block md:w-40 md:text-left ">
+          {searchResult.name}
+        </p>
+        <AddPortfolio
+          onPortfolioSubmit={onPortfolioSubmit}
+          symbol={searchResult.symbol}
+        />
       </div>
-      <AddPortfolio
-        onPortfolioSubmit={onPortfolioSubmit}
-        symbol={searchResult.symbol}
-      />
     </>
   );
 };

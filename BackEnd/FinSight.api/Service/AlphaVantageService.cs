@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinSight.api.Converters;
 using FinSight.api.DTOs.Stock;
 using FinSight.api.Interfaces;
 using FinSight.api.Mappers;
@@ -28,7 +29,17 @@ namespace FinSight.api.Service
                     return null;
 
                 var content = await result.Content.ReadAsStringAsync();
-                var stock = JsonConvert.DeserializeObject<AlphaVantageStock>(content);
+                //var stock = JsonConvert.DeserializeObject<AlphaVantageStock>(content);
+
+                var settings = new JsonSerializerSettings
+                {
+                    Converters = { new NullableDecimalConverter() }
+                };
+
+                var stock = JsonConvert.DeserializeObject<AlphaVantageStock>(
+                    content,
+                    settings
+                );
 
                 if (stock == null || string.IsNullOrEmpty(stock.Symbol))
                     return null;
