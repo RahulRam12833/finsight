@@ -41,13 +41,19 @@ const SearchPage = () => {
 
   const onSearchSubmit = async (e: SyntheticEvent) => {
     setSearchResults([]);
+    setServerError("");
     e.preventDefault();
-    const result = await searchCompanies(search);
-    if (typeof result === "string") {
-      setServerError(result);
-    } else if (Array.isArray(result)) {
+    try {
+      const result = await searchCompanies(search);
+
       setSearchResults(result);
       console.log(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.warning(error.message);
+      } else {
+        toast.warning("An unexpected error has occurred.");
+      }
     }
   };
 
@@ -58,13 +64,19 @@ const SearchPage = () => {
 
     portfolioAddAPI(e.target[0].value)
       .then((res) => {
+        console.log("SUCCESS:", res);
         if (res?.status === 204) {
           toast.success("Stock added to portfolio!");
           getPortfolio();
         }
       })
-      .catch(() => {
-        toast.warning("Could not create portfolio item!");
+      .catch((error) => {
+        console.log("CAUGHT ERROR:", error);
+        console.log("STATUS:", error.response?.status);
+        console.log("DATA:", error.response?.data);
+        const message =
+          error.response?.data || "Could not create portfolio item!";
+        toast.warning(message);
       });
   };
 

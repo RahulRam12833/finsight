@@ -22,7 +22,7 @@ namespace FinSight.api.DTOs.Stock
         public string OfficialSite { get; set; } = string.Empty;
 
         public string FiscalYearEnd { get; set; } = string.Empty;
-        public DateTime LatestQuarter { get; set; }
+        public DateTime? LatestQuarter { get; set; }
 
         public decimal? MarketCapitalization { get; set; }
         public decimal? EBITDA { get; set; }
