@@ -25,6 +25,11 @@ export const searchCompanies = async (keywords: string) => {
     );
     const matches = response.data.bestMatches;
     console.log(response.data);
+    if ("Information" in response.data) {
+      throw new Error(
+        "Stock data provider rate limit reached. Please try again later.",
+      );
+    }
     if (!matches) return [];
 
     return matches.map((m: any) => ({
@@ -39,13 +44,8 @@ export const searchCompanies = async (keywords: string) => {
       matchScore: m["9. matchScore"],
     }));
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("Error fetching company data:", error.message);
-      return error.message;
-    } else {
-      console.error("Unexpected error:", error);
-      return "An unexpected error has occurred";
-    }
+    console.error("Error fetching company data:", error);
+    throw error;
   }
 };
 

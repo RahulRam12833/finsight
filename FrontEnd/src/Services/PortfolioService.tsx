@@ -12,6 +12,7 @@ export const portfolioAddAPI = async (symbol: string) => {
     return data;
   } catch (error) {
     handleError(error);
+    throw error;
   }
 };
 

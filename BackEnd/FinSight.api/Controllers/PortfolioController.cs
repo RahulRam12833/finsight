@@ -8,7 +8,7 @@ using FinSight.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using FinSight.api.Exceptions;
 namespace FinSight.api.Controllers
 {
     [ApiController]
@@ -47,11 +47,18 @@ namespace FinSight.api.Controllers
 
             if (stock == null)
             {
-                stock = await _alphaVantageService.FindStockBySymbolAsync(symbol);
+                try
+                {
+                    stock = await _alphaVantageService.FindStockBySymbolAsync(symbol);
+                }
+                catch (AlphaVantageRateLimitException)
+                {
+                    return StatusCode(429, "Stock data provider rate limit reached. Please try again later.");
+                }
                 if (stock == null)
                     return BadRequest("Stock does not exists");
-                else
-                    await _stockRepo.CreateAsync(stock);
+
+                await _stockRepo.CreateAsync(stock);
             }
 
             if (stock == null)
