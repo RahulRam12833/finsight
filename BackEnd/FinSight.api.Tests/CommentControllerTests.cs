@@ -130,5 +130,84 @@ namespace FinSight.api.Tests
             Assert.Contains(returnedComments, c => c.Title == "Second comment");
         }
 
+        [Fact]
+        public async Task Update_ReturnsNotFound_WhenCommentDoesNotExist()
+        {
+            // Arrange
+            var updateDto = new FinSight.api.DTOs.Comment.UpdateCommentRequestDto
+            {
+                Title = "Updated title",
+                Content = "Updated content"
+            };
+
+            var commentRepository = new Mock<ICommentRepository>();
+
+            commentRepository
+                .Setup(repo => repo.UpdateAsync(999, updateDto))
+                .ReturnsAsync((FinSight.api.Models.Comment?)null);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                null!,
+                null!,
+                null!
+            );
+
+            // Act
+            var result = await controller.Update(999, updateDto);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task Update_ReturnsOk_WhenCommentExists()
+        {
+            // Arrange
+            var updateDto = new FinSight.api.DTOs.Comment.UpdateCommentRequestDto
+            {
+                Title = "Updated title",
+                Content = "Updated content"
+            };
+
+            var updatedComment = new FinSight.api.Models.Comment
+            {
+                Id = 1,
+                Title = "Updated title",
+                Content = "Updated content",
+                AppUserId = "user-1",
+                AppUser = new FinSight.api.Models.AppUser
+                {
+                    UserName = "testuser"
+                }
+            };
+
+            var commentRepository = new Mock<ICommentRepository>();
+
+            commentRepository
+                .Setup(repo => repo.UpdateAsync(1, updateDto))
+                .ReturnsAsync(updatedComment);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                null!,
+                null!,
+                null!
+            );
+
+            // Act
+            var result = await controller.Update(1, updateDto);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var returnedComment =
+                Assert.IsType<FinSight.api.DTOs.Comment.CommentDto>(okResult.Value);
+
+            Assert.Equal(1, returnedComment.Id);
+            Assert.Equal("Updated title", returnedComment.Title);
+            Assert.Equal("Updated content", returnedComment.Content);
+            Assert.Equal("testuser", returnedComment.CreatedBy);
+        }
+
     }
 }
