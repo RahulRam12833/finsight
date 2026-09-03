@@ -1,6 +1,11 @@
 using FinSight.api.Controllers;
 using FinSight.api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using FinSight.api.Models;
+using FinSight.api.DTOs.Comment;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 using Moq;
 
 namespace FinSight.api.Tests
@@ -268,6 +273,146 @@ namespace FinSight.api.Tests
             commentRepository.Verify(
                 repo => repo.Delete(1),
                 Times.Once);
+        }
+
+        [Fact]
+        public async Task Create_ReturnsCreated_WhenStockExists()
+        {
+            // Arrange
+            var stock = new Stock
+            {
+                Id = 1,
+                Symbol = "AAPL",
+                Name = "Apple"
+            };
+
+            var commentDto = new CreateCommentDto
+            {
+                Title = "Great stock",
+                Content = "I like Apple"
+            };
+
+            var user = new AppUser
+            {
+                Id = "user-1",
+                UserName = "testuser"
+            };
+
+            var commentRepository = new Mock<ICommentRepository>();
+            var stockRepository = new Mock<IStockRepository>();
+            var alphaVantageService = new Mock<IAlphaVantageService>();
+
+            stockRepository
+                .Setup(repo => repo.GetBySymbolAsync("AAPL"))
+                .ReturnsAsync(stock);
+
+            commentRepository
+                .Setup(repo => repo.CreateAsync(It.IsAny<Comment>()))
+                .ReturnsAsync((Comment comment) =>
+                {
+                    comment.AppUser = user;
+                    return comment;
+                });
+            var userStore =
+                new Mock<IUserStore<AppUser>>();
+
+            var userManager =
+                new Mock<UserManager<AppUser>>(
+                    userStore.Object,
+                    null!,
+                    null!,
+                    null!,
+                    null!,
+                    null!,
+                    null!,
+                    null!,
+                    null!
+                );
+
+            userManager
+                .Setup(manager => manager.FindByNameAsync("testuser"))
+                .ReturnsAsync(user);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                stockRepository.Object,
+                userManager.Object,
+                alphaVantageService.Object
+            );
+
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext()
+            };
+
+            controller.ControllerContext.HttpContext.User =
+                new ClaimsPrincipal(
+                    new ClaimsIdentity(
+                        new[]
+                        {
+                            new Claim(
+    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
+    "testuser")
+                        }
+                    )
+                );
+
+            // Act
+            var result =
+                await controller.Create("AAPL", commentDto);
+
+            // Assert
+            var createdResult =
+                Assert.IsType<CreatedAtActionResult>(result);
+
+            Assert.Equal(
+                nameof(CommentController.GetById),
+                createdResult.ActionName);
+
+            commentRepository.Verify(
+                repo => repo.CreateAsync(It.IsAny<Comment>()),
+                Times.Once);
+        }
+
+        [Fact]
+        public async Task Create_ReturnsBadRequest_WhenStockDoesNotExist()
+        {
+            // Arrange
+            var commentDto = new CreateCommentDto
+            {
+                Title = "Great stock",
+                Content = "I like this stock"
+            };
+
+            var commentRepository = new Mock<ICommentRepository>();
+            var stockRepository = new Mock<IStockRepository>();
+            var alphaVantageService = new Mock<IAlphaVantageService>();
+
+            stockRepository
+                .Setup(repo => repo.GetBySymbolAsync("INVALID"))
+                .ReturnsAsync((Stock?)null);
+
+            alphaVantageService
+                .Setup(service => service.FindStockBySymbolAsync("INVALID"))
+                .ReturnsAsync((Stock?)null);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                stockRepository.Object,
+                null!,
+                alphaVantageService.Object
+            );
+
+            // Act
+            var result = await controller.Create("INVALID", commentDto);
+
+            // Assert
+            var badRequestResult =
+                Assert.IsType<BadRequestObjectResult>(result);
+
+            Assert.Equal(
+                "Stock does not exists",
+                badRequestResult.Value);
         }
 
     }
