@@ -209,5 +209,66 @@ namespace FinSight.api.Tests
             Assert.Equal("testuser", returnedComment.CreatedBy);
         }
 
+        [Fact]
+        public async Task Delete_ReturnsNotFound_WhenCommentDoesNotExist()
+        {
+            // Arrange
+            var commentRepository = new Mock<ICommentRepository>();
+
+            commentRepository
+                .Setup(repo => repo.Delete(999))
+                .ReturnsAsync((FinSight.api.Models.Comment?)null);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                null!,
+                null!,
+                null!
+            );
+
+            // Act
+            var result = await controller.Delete(999);
+
+            // Assert
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+
+            Assert.Equal("Comment does not exist", notFoundResult.Value);
+        }
+
+        [Fact]
+        public async Task Delete_ReturnsNoContent_WhenCommentExists()
+        {
+            // Arrange
+            var comment = new FinSight.api.Models.Comment
+            {
+                Id = 1,
+                Title = "Test comment",
+                Content = "Test content"
+            };
+
+            var commentRepository = new Mock<ICommentRepository>();
+
+            commentRepository
+                .Setup(repo => repo.Delete(1))
+                .ReturnsAsync(comment);
+
+            var controller = new CommentController(
+                commentRepository.Object,
+                null!,
+                null!,
+                null!
+            );
+
+            // Act
+            var result = await controller.Delete(1);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+
+            commentRepository.Verify(
+                repo => repo.Delete(1),
+                Times.Once);
+        }
+
     }
 }
