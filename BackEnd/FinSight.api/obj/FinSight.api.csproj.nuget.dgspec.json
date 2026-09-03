@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\FinSight.api.csproj": {}
+    "K:\\Coding\\Projects 2025\\FinSight\\Backend\\FinSight.api\\FinSight.api.csproj": {}
   },
   "projects": {
-    "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\FinSight.api.csproj": {
+    "K:\\Coding\\Projects 2025\\FinSight\\Backend\\FinSight.api\\FinSight.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\FinSight.api.csproj",
+        "projectUniqueName": "K:\\Coding\\Projects 2025\\FinSight\\Backend\\FinSight.api\\FinSight.api.csproj",
         "projectName": "FinSight.api",
-        "projectPath": "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\FinSight.api.csproj",
+        "projectPath": "K:\\Coding\\Projects 2025\\FinSight\\Backend\\FinSight.api\\FinSight.api.csproj",
         "packagesPath": "C:\\Users\\Rahul\\.nuget\\packages\\",
-        "outputPath": "K:\\Coding\\Projects 2025\\FinSight\\BackEnd\\FinSight.api\\obj\\",
+        "outputPath": "K:\\Coding\\Projects 2025\\FinSight\\Backend\\FinSight.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rahul\\AppData\\Roaming\\NuGet\\NuGet.Config",
