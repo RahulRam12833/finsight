@@ -40,7 +40,7 @@ namespace FinSight.api.Repository
 
         public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            var comments = _options.Comments.Include(u => u.AppUser).AsQueryable();
+            var comments = _options.Comments.Include(u => u.AppUser).Include(c => c.Stock).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
             {
