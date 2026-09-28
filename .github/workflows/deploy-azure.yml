@@ -15,6 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Show Git SHA
+        run: |
+          echo "GitHub SHA: ${{ github.sha }}"
+          echo "GitHub ref: ${{ github.ref }}"  
+
       - name: Install latest Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
@@ -35,11 +40,11 @@ jobs:
             --username rahulram12833 \
             --password ${{ secrets.CR_PAT }}
 
-          # Update container app with the latest image
+          # Update container app with the SHA-tagged image
           az containerapp update \
             --name finsight-backend \
             --resource-group FinSightRG \
-            --image ghcr.io/rahulram12833/finsight-backend:latest
+            --image ghcr.io/rahulram12833/finsight-backend:${{ github.sha }}
 
       # Deploy Frontend Container App
       - name: Deploy Frontend Container App
@@ -54,4 +59,4 @@ jobs:
           az containerapp update \
             --name finsight-frontend \
             --resource-group FinSightRG \
-            --image ghcr.io/rahulram12833/finsight-frontend:latest
+            --image ghcr.io/rahulram12833/finsight-frontend:${{ github.sha }}
