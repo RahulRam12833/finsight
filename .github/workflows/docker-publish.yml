@@ -25,15 +25,24 @@ jobs:
 
       - name: Build and publish backend Docker image
         run: |
-          docker build -t ghcr.io/rahulram12833/finsight-backend:latest -f BackEnd/FinSight.api/Dockerfile ./BackEnd/FinSight.api
+          docker build \
+            -t ghcr.io/rahulram12833/finsight-backend:latest \
+            -t ghcr.io/rahulram12833/finsight-backend:${{ github.sha }} \
+            -f BackEnd/FinSight.api/Dockerfile \
+            ./BackEnd/FinSight.api
+
           docker push ghcr.io/rahulram12833/finsight-backend:latest
+          docker push ghcr.io/rahulram12833/finsight-backend:${{ github.sha }}
 
       - name: Build and publish frontend Docker image
         run: |
           docker build \
-          --build-arg VITE_API_BASE_URL=${{secrets.VITE_API_BASE_URL}} \
-          --build-arg VITE_ALPHA_API_KEY=${{secrets.VITE_ALPHA_API_KEY}} \
-          -t ghcr.io/rahulram12833/finsight-frontend:latest \
-          -f FrontEnd/Dockerfile \
-          ./FrontEnd
+            --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
+            --build-arg VITE_ALPHA_API_KEY=${{ secrets.VITE_ALPHA_API_KEY }} \
+            -t ghcr.io/rahulram12833/finsight-frontend:latest \
+            -t ghcr.io/rahulram12833/finsight-frontend:${{ github.sha }} \
+            -f FrontEnd/Dockerfile \
+            ./FrontEnd
+
           docker push ghcr.io/rahulram12833/finsight-frontend:latest
+          docker push ghcr.io/rahulram12833/finsight-frontend:${{ github.sha }}
